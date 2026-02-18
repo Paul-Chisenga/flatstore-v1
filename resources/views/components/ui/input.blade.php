@@ -1,1 +1,1 @@
-<input data-slot="input" />
+<input data-slot="input" {{ $attributes->merge(['class' => $classes()]) }} />
