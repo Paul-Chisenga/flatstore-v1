@@ -16,9 +16,12 @@ return new class extends Migration {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignIdFor(Category::class);
-            $table->foreignIdFor(Brand::class);
-            $table->foreignIdFor(Seller::class);
+            $table->text('description')->nullable();
+
+            $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Brand::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Seller::class)->constrained()->cascadeOnDelete();
+
             $table->timestamps();
         });
     }

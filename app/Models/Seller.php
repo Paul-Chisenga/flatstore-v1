@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\SellerType;
-use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,9 +12,8 @@ class Seller extends Model
 {
     /** @use HasFactory<\Database\Factories\SellerFactory> */
     use HasFactory;
-    use HasSlug;
 
-    protected $fillable = ['name', 'type'];
+    protected $fillable = ['type'];
 
     protected $casts = ['type' => SellerType::class];
 

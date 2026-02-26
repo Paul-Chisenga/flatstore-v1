@@ -14,12 +14,9 @@ return new class extends Migration {
     {
         Schema::create('sellers', function (Blueprint $table) {
             $table->id();
-
-            // Seller's name - could be a person's nickname or a business name
-            $table->string('name');
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->enum('type', SellerType::values())
-                ->default(SellerType::Individual->value);
+                ->default(SellerType::Shop->value);
             $table->timestamps();
         });
     }

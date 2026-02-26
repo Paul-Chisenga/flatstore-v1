@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +22,6 @@ class ProfileFactory extends Factory
             "email" => $this->faker->safeEmail(),
             "phone" => $this->faker->phoneNumber(),
             "birth_date" => $this->faker->date(),
-            "user_id" => User::factory(),
         ];
     }
 }

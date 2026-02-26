@@ -13,8 +13,8 @@ return new class extends Migration {
     {
         Schema::create('shops', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignIdFor(Seller::class);
+            $table->string('name'); // Shop name
+            $table->foreignIdFor(Seller::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

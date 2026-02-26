@@ -18,9 +18,6 @@ class ProductFactory extends Factory
     {
         return [
             "name" => $this->faker->word(),
-            "category_id" => \App\Models\Category::factory(),
-            "brand_id" => \App\Models\Brand::factory(),
-            "seller_id" => \App\Models\Seller::factory(),
         ];
     }
 

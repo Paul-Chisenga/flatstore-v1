@@ -1,7 +1,7 @@
 <?php
 
-use App\Enums\RoleName;
-use App\Models\User;
+use App\Enums\OrderStatus;
+use App\Models\Buyer;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,10 +12,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->enum('name', RoleName::values())->default(RoleName::Buyer->value);
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Buyer::class)->constrained()->cascadeOnDelete();
+            $table->decimal('total', 10, 2);
+            $table->enum('status', OrderStatus::values())->default(OrderStatus::PENDING->value);
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('orders');
     }
 };

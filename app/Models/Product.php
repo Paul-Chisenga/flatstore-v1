@@ -6,8 +6,8 @@ use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Product extends Model
 {
@@ -17,10 +17,7 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        // 'description',
-        // 'price',
-        // 'brand_id',
-        // 'seller_id',
+        'description',
     ];
 
     public function brand(): BelongsTo
@@ -38,8 +35,23 @@ class Product extends Model
         return $this->belongsTo(Seller::class);
     }
 
-    public function images(): MorphMany
+    public function variations(): HasMany
     {
-        return $this->morphMany(Attachment::class, 'attachable');
+        return $this->hasMany(ProductVariation::class);
+    }
+
+    public function medias(): HasMany
+    {
+        return $this->hasMany(ProductMedia::class);
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(ProductReview::class);
     }
 }

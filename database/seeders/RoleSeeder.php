@@ -14,9 +14,9 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::factory()->name(RoleName::SuperAdmin)->count(1)->create();
-        Role::factory()->name(RoleName::Admin)->count(3)->create();
-        Role::factory()->name(RoleName::Seller)->count(10)->create();
-        Role::factory()->name(RoleName::Buyer)->count(60)->create();
+        // Role::factory()->name(RoleName::SuperAdmin)->count(1)->create();
+        // Role::factory()->name(RoleName::Admin)->count(3)->create();
+        // Role::factory()->name(RoleName::Seller)->count(10)->create();
+        // Role::factory()->name(RoleName::Buyer)->count(60)->create();
     }
 }

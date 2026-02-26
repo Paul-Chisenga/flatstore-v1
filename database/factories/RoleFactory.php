@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Enums\RoleName;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +19,6 @@ class RoleFactory extends Factory
     {
         return [
             "name" => RoleName::Buyer,
-            "user_id" => User::factory()
         ];
     }
 

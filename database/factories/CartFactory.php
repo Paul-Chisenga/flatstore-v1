@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Shop>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Cart>
  */
-class ShopFactory extends Factory
+class CartFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class ShopFactory extends Factory
     public function definition(): array
     {
         return [
-            "name" => $this->faker->company(),
+            //
         ];
     }
 }

@@ -18,7 +18,7 @@ class AttachmentFactory extends Factory
     {
         return [
             "file_name" => $this->faker->word() . "." . "png",
-            "file_type" => $this->faker->mimeType(),
+            "file_type" => "image/png",
             "file_size" => $this->faker->numberBetween(1000, 1000000),
             "file_url" => $this->faker->imageUrl(),
         ];
