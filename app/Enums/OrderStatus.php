@@ -9,7 +9,12 @@ enum OrderStatus: string
     use HasEnumValues;
 
     case PENDING = "pending";
-    case PROCESSING = "processing";
+    case PAID = "paid";
+    case SHIPPED = "shipped";
+    case DELIVERED = "delivered";
     case CANCELED = "canceled";
-    case COMPLETED = "completed";
+    case REFUND_REQUESTED = "refund_requested";
+    case CANCELED_REFUND = "canceled_requested";
+    case REFUNDED = "refunded";
+
 }

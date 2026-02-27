@@ -16,7 +16,6 @@ class ProductVariation extends Model
         'sku',
         'name',
         'price',
-        'discount_percentage',
         'stock',
         'weight',
         'width',
@@ -33,5 +32,10 @@ class ProductVariation extends Model
     public function medias(): HasMany
     {
         return $this->hasMany(ProductMedia::class);
+    }
+
+    public function discounts(): HasMany
+    {
+        return $this->hasMany(Discount::class);
     }
 }

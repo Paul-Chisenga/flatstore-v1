@@ -15,6 +15,7 @@ class Order extends Model
     protected $fillable = [
         'total',
         'status',
+        'shipping_address'
     ];
 
     public function items(): HasMany
@@ -25,5 +26,20 @@ class Order extends Model
     public function buyer(): BelongsTo
     {
         return $this->belongsTo(Buyer::class);
+    }
+
+    public function seller(): BelongsTo
+    {
+        return $this->belongsTo(Seller::class);
+    }
+
+    public function shop(): BelongsTo
+    {
+        return $this->belongsTo(Shop::class);
+    }
+
+    public function shipments(): HasMany
+    {
+        return $this->hasMany(Shipment::class);
     }
 }

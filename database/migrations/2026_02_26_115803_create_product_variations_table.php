@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->string('sku')->unique();
             $table->string('name')->default('default'); // e.g., "Black - Large"
             $table->decimal('price', 10, 2);
-            $table->decimal('discount_percentage', 5, 2)->nullable();
             $table->integer('stock')->default(0);
 
             // Optional attributes

@@ -35,6 +35,11 @@ class Product extends Model
         return $this->belongsTo(Seller::class);
     }
 
+    public function shop(): BelongsTo
+    {
+        return $this->belongsTo(Shop::class);
+    }
+
     public function variations(): HasMany
     {
         return $this->hasMany(ProductVariation::class);
@@ -43,6 +48,11 @@ class Product extends Model
     public function medias(): HasMany
     {
         return $this->hasMany(ProductMedia::class);
+    }
+
+    public function discounts(): HasMany
+    {
+        return $this->hasMany(Discount::class);
     }
 
     public function tags(): BelongsToMany

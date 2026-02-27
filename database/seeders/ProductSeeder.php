@@ -6,6 +6,7 @@ use App\Enums\SellerType;
 use App\Models\Attachment;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Discount;
 use App\Models\Product;
 use App\Models\ProductMedia;
 use App\Models\ProductReview;
@@ -33,6 +34,7 @@ class ProductSeeder extends Seeder
 
         Product::factory(15)
             ->for($seller)
+            ->for($seller->shops()->first())
             ->for($category)
             ->for($brand)
             // Product with 3 variations, each variation has 2 media, each media has 1 attachment
@@ -46,7 +48,8 @@ class ProductSeeder extends Seeder
                                 'media'
                             ),
                         'medias'
-                    ),
+                    )
+                    ->has(Discount::factory(), 'discounts'),
                 'variations'
             )
             // Product with 2 media, each media has 1 attachment
@@ -62,6 +65,8 @@ class ProductSeeder extends Seeder
                 Tag::factory()->count(3),
                 'tags'
             )
+            // one discount per product
+            ->has(Discount::factory(), 'discounts')
             ->create();
     }
 }

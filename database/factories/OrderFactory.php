@@ -20,6 +20,7 @@ class OrderFactory extends Factory
         return [
             "total" => $this->faker->randomFloat(2, 10, 500), // Random total between 10 and 500
             "status" => $this->faker->randomElement(OrderStatus::values()),
+            "shipping_address" => $this->faker->address(),
         ];
     }
 }

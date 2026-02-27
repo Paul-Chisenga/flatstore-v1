@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Order;
-use App\Models\ProductVariation;
+use App\Models\OrderItem;
+use App\Models\Shipment;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,13 +12,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('order_items', function (Blueprint $table) {
+        Schema::create('shipment_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Order::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(ProductVariation::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Shipment::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(OrderItem::class)->constrained()->cascadeOnDelete();
             $table->integer('quantity');
-            $table->decimal('unit_price', 10, 2);
-            $table->decimal('discount_value', 10, 2)->default(0);
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_items');
+        Schema::dropIfExists('shipment_items');
     }
 };

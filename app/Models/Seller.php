@@ -31,4 +31,9 @@ class Seller extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function shippingMethods(): HasMany
+    {
+        return $this->hasMany(SellerShippingMethod::class);
+    }
 }

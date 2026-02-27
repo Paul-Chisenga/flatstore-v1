@@ -19,6 +19,7 @@ class OrderItemFactory extends Factory
         return [
             "quantity" => $this->faker->numberBetween(1, 5),
             "unit_price" => $this->faker->randomFloat(2, 10, 100),
+            "discount_value" => $this->faker->randomFloat(2, 0, 20),
         ];
     }
 }

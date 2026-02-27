@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Shop extends Model
 {
@@ -17,5 +18,15 @@ class Shop extends Model
     function seller()
     {
         return $this->belongsTo(Seller::class);
+    }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function shippingMethods(): HasMany
+    {
+        return $this->hasMany(SellerShippingMethod::class);
     }
 }

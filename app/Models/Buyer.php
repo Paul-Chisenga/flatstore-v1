@@ -31,4 +31,9 @@ class Buyer extends Model
     {
         return $this->hasMany(Order::class);
     }
+
+    public function shippingAddresses(): HasMany
+    {
+        return $this->hasMany(ShippingAddress::class);
+    }
 }

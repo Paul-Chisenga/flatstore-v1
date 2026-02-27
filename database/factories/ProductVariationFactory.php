@@ -20,7 +20,6 @@ class ProductVariationFactory extends Factory
             "sku" => $this->faker->unique()->bothify('SKU-####'),
             "name" => $this->faker->word(),
             "price" => $this->faker->randomFloat(2, 1, 100),
-            "discount_percentage" => $this->faker->randomFloat(2, 0, 50),
             "stock" => $this->faker->numberBetween(0, 100),
             "weight" => $this->faker->randomFloat(2, 0.1, 100),
             "width" => $this->faker->randomFloat(2, 0.1, 100),

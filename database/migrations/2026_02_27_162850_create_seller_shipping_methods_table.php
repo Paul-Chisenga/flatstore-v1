@@ -1,8 +1,7 @@
 <?php
 
-use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Seller;
+use App\Models\ShippingMethod;
 use App\Models\Shop;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,16 +13,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('seller_shipping_methods', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-
-            $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Brand::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Seller::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Shop::class)->nullable()->constrained()->cascadeOnDelete();
-
+            $table->foreignIdFor(ShippingMethod::class)->constrained()->cascadeOnDelete();
+            $table->boolean('is_enabled')->default(true); // seller can toggle participation
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('seller_shipping_methods');
     }
 };
