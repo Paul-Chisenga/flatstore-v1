@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->json('seller_shipping_method_ids')->nullable();
 
             $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Brand::class)->constrained()->cascadeOnDelete();

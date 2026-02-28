@@ -17,7 +17,14 @@ class ShippingAddressFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "full_name" => $this->faker->name(),
+            "street_address" => $this->faker->streetAddress(),
+            "city" => $this->faker->city(),
+            "state" => $this->faker->state(),
+            "postal_code" => $this->faker->postcode(),
+            "country" => $this->faker->country(),
+            "phone" => $this->faker->phoneNumber(),
+            "is_default" => $this->faker->boolean(20), // 20% chance to be default
         ];
     }
 }

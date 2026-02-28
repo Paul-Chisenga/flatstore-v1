@@ -6,6 +6,7 @@ use App\Models\Buyer;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\ProductVariation;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
 class CartSeeder extends Seeder
@@ -15,12 +16,11 @@ class CartSeeder extends Seeder
      */
     public function run(): void
     {
+        $buyers = Buyer::all();
         Cart::factory()
-            ->for(Buyer::first(), 'buyer')
-            ->has(
-                CartItem::factory()
-                    ->for(ProductVariation::first(), 'productVariation'),
-                'items'
+            ->count($buyers->count())
+            ->sequence(
+                fn(Sequence $sequence) => ['buyer_id' => $buyers->get($sequence->index)]
             )
             ->create();
     }

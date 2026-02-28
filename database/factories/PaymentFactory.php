@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,10 @@ class PaymentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "amount" => $this->faker->randomFloat(2, 20, 500),
+            "currency" => $this->faker->currencyCode(),
+            "status" => $this->faker->randomElement(PaymentStatus::values()),
+            "transaction_reference" => $this->faker->uuid(),
         ];
     }
 }

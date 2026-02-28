@@ -18,6 +18,10 @@ return new class extends Migration {
             $table->foreignIdFor(Seller::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Shop::class)->nullable()->constrained()->cascadeOnDelete();
             $table->foreignIdFor(ShippingMethod::class)->constrained()->cascadeOnDelete();
+
+            $table->decimal('shipping_cost', 10, 2)->default(0.00);
+            $table->decimal('estimated_delivery_time', 5, 2)->nullable(); // e.g., in days
+
             $table->boolean('is_enabled')->default(true); // seller can toggle participation
             $table->timestamps();
         });

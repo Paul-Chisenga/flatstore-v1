@@ -16,7 +16,11 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(Shipment::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(OrderItem::class)->constrained()->cascadeOnDelete();
+
+            // Quantity of the order item in this shipment
+            // This allows for partial shipments of an order item if needed
             $table->integer('quantity');
+
             $table->timestamps();
         });
     }

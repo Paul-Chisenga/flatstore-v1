@@ -20,6 +20,8 @@ return new class extends Migration {
             $table->foreignIdFor(ProductVariation::class)->constrained()->cascadeOnDelete();
             $table->integer('quantity');
             $table->decimal('unit_price', 10, 2);
+            $table->decimal('tax_amount', 12, 2)->default(0);
+            $table->decimal('shipping_cost', 10, 2);
             $table->decimal('discount_value', 10, 2)->default(0);
             $table->timestamps();
         });

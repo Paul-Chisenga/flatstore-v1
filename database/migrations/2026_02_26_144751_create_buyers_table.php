@@ -13,7 +13,7 @@ return new class extends Migration {
     {
         Schema::create('buyers', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->unique()->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

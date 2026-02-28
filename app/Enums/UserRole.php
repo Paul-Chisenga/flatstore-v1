@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use App\Traits\HasEnumValues;
 
-enum RoleName: string
+enum UserRole: string
 {
     use HasEnumValues;
 

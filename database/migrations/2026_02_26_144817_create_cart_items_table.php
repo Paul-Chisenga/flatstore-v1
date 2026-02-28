@@ -20,7 +20,7 @@ return new class extends Migration {
 
             // Snapshot pricing at time of adding to cart
             $table->decimal('unit_price', 10, 2);
-            $table->decimal('discount_percentage', 5, 2)->nullable();
+            $table->decimal('discount_value', 10, 2)->nullable();
 
             $table->timestamps();
         });

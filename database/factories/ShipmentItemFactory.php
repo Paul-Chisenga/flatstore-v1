@@ -17,7 +17,7 @@ class ShipmentItemFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "quantity" => $this->faker->numberBetween(1, 5), // Random quantity between 1 and 5
         ];
     }
 }

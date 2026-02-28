@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\OrderStatus;
+use App\Enums\OrderPaymentStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +18,7 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            "total" => $this->faker->randomFloat(2, 10, 500), // Random total between 10 and 500
-            "status" => $this->faker->randomElement(OrderStatus::values()),
-            "shipping_address" => $this->faker->address(),
+            "payment_status" => $this->faker->randomElement(OrderPaymentStatus::values()),
         ];
     }
 }

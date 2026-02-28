@@ -2,25 +2,26 @@
 
 namespace Database\Seeders;
 
-use App\Enums\RoleName;
 use App\Enums\UserRole;
 use App\Models\Attachment;
-use App\Models\Buyer;
 use App\Models\Profile;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
-class BuyerSeeder extends Seeder
+class ProfileSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Buyer::factory()
-            ->for(User::where("role", UserRole::Buyer->value)->first())
-            ->create();
+        $user = User::all();
+        Profile::factory()->count(2)
+        ->sequence(
+            fn(Sequence $sequence) => ['user_id' => $user[$sequence->index]]
+        )
+        ->create();
     }
 }

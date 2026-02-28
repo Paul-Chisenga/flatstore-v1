@@ -2,29 +2,28 @@
 
 namespace Database\Seeders;
 
-use App\Models\Buyer;
 use App\Models\Product;
-use App\Models\ProductReview;
+use App\Models\ProductTag;
+use App\Models\Tag;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ProductReviewSeeder extends Seeder
+class ProductTagSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-
-        $buyer = Buyer::all();
         $products = Product::all();
+        $tags = Tag::take($products->count() * 2)->get(); // Get enough tags for products
 
-        ProductReview::factory()
-            ->count(3)
+        ProductTag::factory()
+            ->count($products->count() * 2) // 2 tags per product
             ->sequence(
                 fn($sequence) => [
                     'product_id' => $products->get($sequence->index % $products->count()),
-                    'buyer_id' => $buyer->get($sequence->index % $buyer->count()),
+                    'tag_id' => $tags->get($sequence->index % $tags->count()),
                 ]
             )
             ->create();

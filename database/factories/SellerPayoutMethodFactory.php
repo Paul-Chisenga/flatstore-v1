@@ -17,7 +17,8 @@ class SellerPayoutMethodFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "account_details" => $this->faker->bankAccountNumber(), // Example account details
+            "is_enabled" => $this->faker->boolean(), // Randomly enable or disable
         ];
     }
 }

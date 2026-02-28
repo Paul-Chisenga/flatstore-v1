@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\PaymentMethodName;
+use App\Enums\PaymentMethodProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,9 @@ class PaymentMethodFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "name" => $this->faker->randomElement(PaymentMethodName::values()),
+            "provider" => $this->faker->randomElement(PaymentMethodProvider::values()),
+            "is_active" => $this->faker->boolean(80), // 80% chance of being active
         ];
     }
 }

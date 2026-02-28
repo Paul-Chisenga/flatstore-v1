@@ -12,10 +12,12 @@ class SellerShippingMethod extends Model
     use HasFactory;
 
     protected $fillable = [
-        'is_enabled'
+        'is_enabled',
+        'shipping_cost',
+        'estimated_delivery_time',
     ];
 
-    public function shipping_method(): BelongsTo
+    public function method(): BelongsTo
     {
         return $this->belongsTo(ShippingMethod::class);
     }

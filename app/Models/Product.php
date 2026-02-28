@@ -20,6 +20,10 @@ class Product extends Model
         'description',
     ];
 
+    protected $casts = [
+        'seller_shipping_method_ids' => 'array',
+    ];
+
     public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class);
@@ -63,5 +67,41 @@ class Product extends Model
     public function reviews(): HasMany
     {
         return $this->hasMany(ProductReview::class);
+    }
+
+    public function shippingMethods()
+    {
+
+        // RUN WITH $products = Product::with('seller.shippingMethods.method')->get();
+
+        $sellerMethods = $this->seller->relationLoaded('shippingMethods')
+            ? $this->seller->shippingMethods
+            : null;
+
+        if ($sellerMethods) {
+            // optionally eager‑load 'method' here as well
+            $sellerMethods->loadMissing('method');
+
+            if ($this->seller_shipping_method_ids) {
+                return $sellerMethods
+                    ->whereIn('id', $this->seller_shipping_method_ids);
+            }
+
+            return $sellerMethods;
+        }
+
+        // nothing pre‑loaded, run a query as before
+        if ($this->seller_shipping_method_ids) {
+            // Get product-specific seller shipping methods with their shipping method details
+            return $this->seller->shippingMethods()
+                ->whereIn('id', $this->seller_shipping_method_ids)
+                ->with('method')
+                ->get();
+        }
+
+        // Fall back to all seller's shipping methods
+        return $this->seller->shippingMethods()
+            ->with('method')
+            ->get();
     }
 }

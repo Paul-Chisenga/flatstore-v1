@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Tag::class)->constrained()->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 

@@ -15,6 +15,7 @@ class OrderItem extends Model
     protected $fillable = [
         'quantity',
         'unit_price',
+        'tax_amount',
         'discount_value'
     ];
 
@@ -30,7 +31,7 @@ class OrderItem extends Model
 
     public function subOrder(): BelongsTo
     {
-        return $this->belongsTo(SubOder::class);
+        return $this->belongsTo(SubOrder::class);
     }
 
     public function shipmentItems(): HasMany

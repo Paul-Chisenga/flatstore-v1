@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->foreignIdFor(Seller::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(PayoutMethod::class)->constrained()->cascadeOnDelete();
             $table->boolean('is_enabled')->default(true); // seller opts in/out
-            $table->string('details')->nullable(); // e.g., bank account number, mobile wallet ID
+            $table->string('account_details')->nullable(); // e.g., bank account number, mobile wallet ID
             $table->timestamps();
         });
     }

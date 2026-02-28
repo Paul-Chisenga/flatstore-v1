@@ -36,4 +36,9 @@ class Seller extends Model
     {
         return $this->hasMany(SellerShippingMethod::class);
     }
+
+    public function payoutMethods(): HasMany
+    {
+        return $this->hasMany(SellerPayoutMethod::class);
+    }
 }
