@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\OrderFufillmentType;
+use App\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,9 +15,15 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'total',
-        'status',
-        'shipping_address'
+        "fufillment_type",
+        "total_amount",
+        "currency",
+        "payment_status",
+    ];
+    protected $casts = [
+        "fufillment_type" => OrderFufillmentType::class,
+        "total_amount" => 'decimal:2',
+        "payment_status" => PaymentStatus::class,
     ];
 
     public function items(): HasMany
@@ -28,18 +36,23 @@ class Order extends Model
         return $this->belongsTo(Buyer::class);
     }
 
-    public function seller(): BelongsTo
+    public function paymentMethod(): BelongsTo
     {
-        return $this->belongsTo(Seller::class);
+        return $this->belongsTo(PaymentMethod::class);
     }
 
-    public function shop(): BelongsTo
+    public function shippingMethod(): BelongsTo
     {
-        return $this->belongsTo(Shop::class);
+        return $this->belongsTo(ShippingMethod::class);
     }
 
-    public function shipments(): HasMany
+    public function shippingAddress(): BelongsTo
     {
-        return $this->hasMany(Shipment::class);
+        return $this->belongsTo(ShippingAddress::class);
+    }
+
+    public function subOrders(): HasMany
+    {
+        return $this->hasMany(SubOder::class);
     }
 }

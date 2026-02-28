@@ -28,6 +28,11 @@ class OrderItem extends Model
         return $this->belongsTo(Order::class);
     }
 
+    public function subOrder(): BelongsTo
+    {
+        return $this->belongsTo(SubOder::class);
+    }
+
     public function shipmentItems(): HasMany
     {
         return $this->hasMany(ShipmentItem::class);

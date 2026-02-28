@@ -14,7 +14,7 @@ enum OrderStatus: string
     case DELIVERED = "delivered";
     case CANCELED = "canceled";
     case REFUND_REQUESTED = "refund_requested";
-    case CANCELED_REFUND = "canceled_requested";
+    case REFUND_DECLINED = "refund_request_declined";
+    case REFUND_APPROVED = "refund_approved";
     case REFUNDED = "refunded";
-
 }
