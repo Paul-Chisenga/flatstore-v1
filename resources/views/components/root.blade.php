@@ -4,6 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function () {
+            // Dark mode support
+            var root = document.documentElement;
+            var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+            function setOutputMessage(message) {
+                var output = document.getElementById('output');
+
+                if (output) {
+                    output.textContent = message;
+                }
+            }
+
+            function applyTheme(isDark) {
+                root.classList.toggle('dark', isDark);
+                root.style.colorScheme = isDark ? 'dark' : 'light';
+            }
+
+            applyTheme(mediaQuery.matches);
+
+            if (typeof mediaQuery.addEventListener === 'function') {
+                mediaQuery.addEventListener('change', function (event) {
+                    applyTheme(event.matches);
+                });
+            } else if (typeof mediaQuery.addListener === 'function') {
+                mediaQuery.addListener(function (event) {
+                    applyTheme(event.matches);
+                });
+            }
+
+            // WebView communication
+            if (window.ReactNativeWebView) {
+                window.ReactNativeWebView.postMessage(JSON.stringify({ customValue: 'Hello from WebView!' }));
+
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', function () {
+                        setOutputMessage('Sent message to React Native WebView: Hello from WebView!');
+                    });
+                } else {
+                    setOutputMessage('Sent message to React Native WebView: Hello from WebView!');
+                }
+            }
+
+        })();
+    </script>
+
     <title>Flatstore - Find your perfect product</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,8 +60,9 @@
 
 <body class="antialiased">
     {{ $slot }}
-
+    <p id="output"></p>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
+
 </html>
