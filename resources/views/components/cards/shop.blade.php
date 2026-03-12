@@ -15,8 +15,7 @@
 
 @props(['name', 'tagline' => null, 'logoUrl' => null, 'productsUrl' => '#', 'detailsUrl' => '#'])
 
-<div
-    {{ $attributes->merge(['class' => 'grid grid-cols-[84px_1fr] items-center gap-4 rounded-2xl border border-border bg-card']) }}>
+<div {{ $attributes->merge(['class' => 'grid grid-cols-[84px_1fr] items-center gap-4 rounded-2xl border border-border bg-card']) }}>
     {{-- Logo Box --}}
     <div
         class="size-21 overflow-hidden rounded-2xl border border-border bg-primary p-2 flex items-center justify-center">
@@ -37,11 +36,11 @@
         </div>
 
         {{-- <div class="flex flex-wrap items-center gap-2">
-            <x-ui.button type="button" :intent="Intent::Primary" :size="Size::Small"
+            <x-ui.button type="button" :intent="Intent::Primary" :size="Size::Sm"
                 onclick="window.location.assign(@js($productsUrl))">
                 View Products
             </x-ui.button>
-            <x-ui.button type="button" :intent="Intent::Primary" :variant="Variant::Outline" :size="Size::Small"
+            <x-ui.button type="button" :intent="Intent::Primary" :variant="Variant::Outline" :size="Size::Sm"
                 onclick="window.location.assign(@js($detailsUrl))">
                 Company Details
             </x-ui.button>

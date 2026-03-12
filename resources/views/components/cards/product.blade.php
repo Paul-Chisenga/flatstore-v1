@@ -1,6 +1,5 @@
 @php
     use App\Enums\Components\Button\Size;
-    use App\Enums\Components\Button\Variant;
     use App\Enums\Components\Button\Intent;
 @endphp
 
@@ -11,7 +10,7 @@
     <div class="w-full aspect-square rounded-2xl bg-secondary relative overflow-hidden">
         <img src="{{ $imageUrl }}" alt="{{ $title }}" class="w-full h-full object-contain p-2">
         {{-- Add to wishlist --}}
-        <x-ui.button class="absolute size-8 top-2 right-2 rounded-full dark" :size="Size::Icon" :intent="Intent::Primary">
+        <x-ui.button class="absolute top-2 right-2 rounded-full dark" :size="Size::IconXs" :intent="Intent::Primary">
             <ion-icon name="heart-outline" class=""></ion-icon>
         </x-ui.button>
     </div>
@@ -23,5 +22,5 @@
         <span class="text-sm text-secondary-foreground">{{ $rating }}</span>
     </div>
     {{-- Price --}}
-    <span class="font-bold">K{{ $price }}</p>
+    <span class="font-bold">K{{ $price }}</span>
 </a>

@@ -10,8 +10,8 @@ use App\Utils\ShadCn;
 class Button extends ShadCn
 {
     public function __construct(
-        public Variant $variant = Variant::Default,
-        public Size $size = Size::Default,
+        public Variant $variant = Variant::Default ,
+        public Size $size = Size::Default ,
         public Intent $intent = Intent::Primary,
         public string $type = 'button',
         public string $class = '',
@@ -69,8 +69,11 @@ class Button extends ShadCn
 
         $sizes = [
             'default' => '',
+            'sm' => 'h-[38px] px-3 py-1.5 text-sm',
+            'xs' => 'h-[30px] px-2 py-1 text-xs',
             'icon' => 'h-[50px] w-[50px] justify-center !px-0 !py-0 text-xl',
-            'small' => 'h-[38px] px-3 py-1.5 text-sm',
+            'icon-sm' => 'h-[38px] w-[38px] justify-center !px-0 !py-0 text-base',
+            'icon-xs' => 'h-[30px] w-[30px] justify-center !px-0 !py-0 text-sm',
         ];
 
         return [

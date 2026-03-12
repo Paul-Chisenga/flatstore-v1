@@ -9,6 +9,9 @@ enum Size: string
     use HasEnumValues;
 
     case Default = 'default';
+    case Sm = 'sm';
+    case Xs = 'xs';
     case Icon = 'icon';
-    case Small = 'small';
+    case IconSm = 'icon-sm';
+    case IconXs = 'icon-xs';
 }
