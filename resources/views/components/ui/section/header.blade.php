@@ -1,3 +1,5 @@
-<div {{ $attributes->merge(['class' => 'py-4 flex gap-4 items-center justify-between']) }}>
+@props(['class' => $class ?? ''])
+
+<div {{ $attributes->merge(['class' => $class]) }}>
     {{ $slot }}
 </div>

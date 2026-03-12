@@ -5,20 +5,20 @@ namespace App\View\Components\Ui;
 use App\Enums\Components\Button\Intent;
 use App\Enums\Components\Button\Size;
 use App\Enums\Components\Button\Variant;
-use App\Utils\ShadCn;
+use App\View\Components\BaseUiComponent;
 
-class Button extends ShadCn
+class Button extends BaseUiComponent
 {
     public function __construct(
-        public Variant $variant = Variant::Default ,
-        public Size $size = Size::Default ,
-        public Intent $intent = Intent::Primary,
-        public string $type = 'button',
-        public string $class = '',
+        protected Variant $variant = Variant::Default,
+        protected Size $size = Size::Default,
+        protected Intent $intent = Intent::Primary,
+        protected string $type = 'button',
+        protected string $class = '',
     ) {
         parent::__construct(
-            view_path: 'components.ui.button',
-            base_classes: $this->buttonClasses($variant, $size, $intent),
+            viewPath: 'components.ui.button',
+            baseClasses: $this->buttonClasses($variant, $size, $intent),
             class: $class
         );
     }
@@ -80,7 +80,19 @@ class Button extends ShadCn
             $base,
             $variants[$variant->value][$intent->value],
             $sizes[$size->value],
-            $this->class,
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function exposeToView(): array
+    {
+        return [
+            'variant' => $this->variant->value,
+            'size' => $this->size->value,
+            'intent' => $this->intent->value,
+            'type' => $this->type,
         ];
     }
 }

@@ -1,14 +1,21 @@
 @php
-    use App\Enums\Components\Button\Intent;
-    use App\Enums\Components\Button\Size;
-    use App\Enums\Components\Button\Variant;
+    /**
+     * @var string $type
+     * @var string $variant
+     * @var string $size
+     * @var string $intent
+     * @var string $class
+     */
 @endphp
 @props([
-    'variant' => Variant::Ghost->value,
-    'size' => Size::Default->value,
-    'intent' => Intent::Primary->value,
+    'type' => $type ?? 'button',
+    'variant' => $variant ?? '',
+    'size' => $size ?? '',
+    'intent' => $intent ?? '',
+    'class' => $class ?? '',
 ])
-<button data-slot="button" data-variant="{{ $variant }}" data-size="{{ $size }}"
-    data-intent="{{ $intent }}" {{ $attributes->merge(['class' => $classes()]) }}>
+
+<button type="{{ $type }}" data-slot="button" data-variant="{{ $variant }}" data-size="{{ $size }}"
+    data-intent="{{ $intent }}" {{ $attributes->merge(['class' => $class]) }}>
     {{ $slot }}
 </button>

@@ -1,1 +1,3 @@
-<div {{ $attributes->merge(['class' => '']) }}>{{ $slot }}</div>
+@props(['class' => $class ?? ''])
+
+<div {{ $attributes->merge(['class' => $class]) }}>{{ $slot }}</div>

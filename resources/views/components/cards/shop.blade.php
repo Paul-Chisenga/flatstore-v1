@@ -1,21 +1,15 @@
 @php
-    use App\Enums\Components\Button\Intent;
-    use App\Enums\Components\Button\Size;
-    use App\Enums\Components\Button\Variant;
-
     /**
      * @var string $name
-     * @var ?string $tagline
-     * @var ?string $logoUrl
+     * @var string|null $tagline
+     * @var string|null $logoUrl
      * @var string $productsUrl
      * @var string $detailsUrl
      */
-
 @endphp
-
 @props(['name', 'tagline' => null, 'logoUrl' => null, 'productsUrl' => '#', 'detailsUrl' => '#'])
 
-<div {{ $attributes->merge(['class' => 'grid grid-cols-[84px_1fr] items-center gap-4 rounded-2xl border border-border bg-card']) }}>
+<div {{ $attributes->merge(['class' => $class]) }}>
     {{-- Logo Box --}}
     <div
         class="size-21 overflow-hidden rounded-2xl border border-border bg-primary p-2 flex items-center justify-center">

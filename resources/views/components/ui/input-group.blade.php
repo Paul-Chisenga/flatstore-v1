@@ -1,3 +1,5 @@
-<div data-slot="input-group" {{ $attributes->merge(['class' => $classes()]) }}>
+@props(['class' => $class ?? ''])
+
+<div data-slot="input-group" {{ $attributes->merge(['class' => $class]) }}>
     {{ $slot }}
 </div>

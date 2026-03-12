@@ -1,1 +1,3 @@
-<h1 {{ $attributes->merge(['class' => 'text-lg font-bold']) }}>{{ $slot }}</h1>
+@props(['class' => $class ?? ''])
+
+<h1 {{ $attributes->merge(['class' => $class]) }}>{{ $slot }}</h1>

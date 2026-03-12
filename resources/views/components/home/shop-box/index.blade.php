@@ -1,4 +1,13 @@
-<a {{ $attributes->merge(['class' => 'active:opacity-75 transition-opacity duration-150']) }}>
+@php
+    /**
+     * @var mixed $logo
+     * @var string $name
+     * @var string|null $tagline
+     */
+@endphp
+@props(['logo', 'name', 'tagline' => null])
+
+<a {{ $attributes->merge(['class' => $class]) }}>
     <div class="flex flex-col items-center gap-2 text-center">
         <div
             class="size-12 rounded-full border border-border bg-card p-2 flex items-center justify-center overflow-hidden">

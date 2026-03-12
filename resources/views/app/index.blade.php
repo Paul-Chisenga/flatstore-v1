@@ -84,7 +84,7 @@
             </x-ui.section.content>
         </x-ui.section>
         {{-- Most Popular --}}
-        <x-ui.section class="!px-0">
+        <x-ui.section class="px-0">
             <x-ui.section.header class="px-4">
                 <x-ui.section.title>Most Popular</x-ui.section.title>
                 <x-ui.section.button>See All</x-ui.section.button>
@@ -93,26 +93,21 @@
                 {{-- Filters --}}
                 <div class="flex gap-4 overflow-x-auto mb-6 px-4">
                     <x-ui.button :intent="Intent::Primary" :size="Size::Sm">All</x-ui.button>
-                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline"
-                        :size="Size::Sm">Clothes</x-ui.button>
-                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline"
-                        :size="Size::Sm">Shoes</x-ui.button>
-                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline"
-                        :size="Size::Sm">Bags</x-ui.button>
-                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline"
-                        :size="Size::Sm">Electronics</x-ui.button>
+                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline" :size="Size::Sm">Clothes</x-ui.button>
+                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline" :size="Size::Sm">Shoes</x-ui.button>
+                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline" :size="Size::Sm">Bags</x-ui.button>
+                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline" :size="Size::Sm">Electronics</x-ui.button>
                 </div>
                 {{-- Products grid --}}
                 <div class="grid grid-cols-2 gap-4 px-4">
                     @foreach ($popular_products as $product)
-                        <x-cards.product title="{{ $product->name }}" price="{{ $product->price }}"
-                            rating="{{ $product->rating }}" imageUrl="{{ $product->image }}" />
+                        <x-cards.product :product="$product" />
                     @endforeach
                 </div>
             </x-ui.section.content>
         </x-ui.section>
         {{-- Shops --}}
-        <x-ui.section class="!px-0">
+        <x-ui.section class="px-0">
             <x-ui.section.header class="px-4">
                 <x-ui.section.title>Shops</x-ui.section.title>
                 <x-ui.section.button>See All</x-ui.section.button>
@@ -137,8 +132,7 @@
             <x-ui.section.content>
                 <div class="grid grid-cols-2 gap-4">
                     @foreach ($related_products as $product)
-                        <x-cards.product title="{{ $product->name }}" price="{{ $product->price }}"
-                            rating="{{ $product->rating }}" imageUrl="{{ $product->image }}" />
+                        <x-cards.product :product="$product" />
                     @endforeach
                 </div>
             </x-ui.section.content>
@@ -152,8 +146,7 @@
             <x-ui.section.content>
                 <div class="grid grid-cols-2 gap-4">
                     @foreach ($recent_products as $product)
-                        <x-cards.product title="{{ $product->name }}" price="{{ $product->price }}"
-                            rating="{{ $product->rating }}" imageUrl="{{ $product->image }}" />
+                        <x-cards.product :product="$product" />
                     @endforeach
                 </div>
             </x-ui.section.content>

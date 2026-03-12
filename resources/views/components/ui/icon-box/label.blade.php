@@ -1,3 +1,5 @@
-<span {{ $attributes->merge(['class' => 'text-secondary-foreground text-xs font-medium']) }}>
+@props(['class' => $class ?? ''])
+
+<span {{ $attributes->merge(['class' => $class]) }}>
     {{ $slot }}
 </span>

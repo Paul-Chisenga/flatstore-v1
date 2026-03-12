@@ -1,20 +1,19 @@
+@php
+    /**
+     * @var \App\Enums\Components\Button\Variant $variant
+     * @var \App\Enums\Components\Button\Intent $intent
+     * @var \App\Enums\Components\Button\Size $size
+     * @var string $class
+     */
+@endphp
 @props([
-    'variant' => 'ghost',
-    'size' => 'xs',
-    'intent' => 'muted',
+    'variant' => $variant ?? null,
+    'intent' => $intent ?? null,
+    'size' => $size ?? null,
+    'class' => $class ?? '',
 ])
 
-@php
-    use App\Enums\Components\Button\Intent;
-    use App\Enums\Components\Button\Size;
-    use App\Enums\Components\Button\Variant;
-
-    $resolvedVariant = Variant::tryFrom($variant) ?? Variant::Ghost;
-    $resolvedIntent = Intent::tryFrom($intent) ?? Intent::Muted;
-    $resolvedSize = Size::tryFrom($size) ?? Size::Default;
-@endphp
-
-<x-ui.button type="button" :variant="$resolvedVariant" :intent="$resolvedIntent" :size="$resolvedSize"
-    {{ $attributes->merge(['class' => $classes()]) }}>
+<x-ui.button type="button" :variant="$variant" :intent="$intent" :size="$size"
+    {{ $attributes->merge(['class' => $class]) }}>
     {{ $slot }}
 </x-ui.button>

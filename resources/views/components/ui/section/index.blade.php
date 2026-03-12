@@ -1,1 +1,3 @@
-<section {{ $attributes->merge(['class' => 'px-4']) }}>{{ $slot }}</section>
+@props(['class' => $class ?? ''])
+
+<section {{ $attributes->merge(['class' => $class]) }}>{{ $slot }}</section>

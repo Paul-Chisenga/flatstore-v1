@@ -1,4 +1,12 @@
-<a {{ $attributes->merge(['class' => 'active:opacity-75 transition-opacity duration-150']) }}>
+@php
+    /**
+     * @var mixed $icon
+     * @var mixed $label
+     */
+@endphp
+@props(['icon', 'label', 'class' => $class ?? ''])
+
+<a {{ $attributes->merge(['class' => $class]) }}>
     <x-ui.icon-box>
         <x-ui.icon-box.icon>
             {{ $icon }}
