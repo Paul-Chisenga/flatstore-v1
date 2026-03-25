@@ -13,7 +13,5 @@ readonly class Product
         public string $price,
         public string $rating,
         public string $image,
-    )
-    {
-    }
+    ) {}
 }

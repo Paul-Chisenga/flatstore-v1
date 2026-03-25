@@ -15,7 +15,7 @@ class SellerSeeder extends Seeder
     public function run(): void
     {
         Seller::factory()
-            ->for(User::where("role", UserRole::Seller->value)->first())
+            ->for(User::where('role', UserRole::Seller->value)->first())
             ->create();
     }
 }

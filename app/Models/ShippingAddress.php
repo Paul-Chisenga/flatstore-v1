@@ -20,7 +20,7 @@ class ShippingAddress extends Model
         'postal_code',
         'country',
         'phone',
-        'is_default'
+        'is_default',
     ];
 
     public function buyer(): BelongsTo

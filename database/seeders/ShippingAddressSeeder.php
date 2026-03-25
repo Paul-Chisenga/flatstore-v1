@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Buyer;
 use App\Models\ShippingAddress;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ShippingAddressSeeder extends Seeder
@@ -17,7 +16,7 @@ class ShippingAddressSeeder extends Seeder
         $buyers = Buyer::all();
         ShippingAddress::factory()
             ->count($buyers->count())
-            ->sequence(fn($sequence) => ['buyer_id' => $buyers->get($sequence->index)])
+            ->sequence(fn ($sequence) => ['buyer_id' => $buyers->get($sequence->index)])
             ->create();
     }
 }

@@ -15,13 +15,14 @@ class SubOrder extends Model
     use HasFactory;
 
     protected $fillable = [
-        "status",
-        "fulfillment_type",
-        "seller_shipping_method_id",
+        'status',
+        'fulfillment_type',
+        'seller_shipping_method_id',
     ];
+
     protected $casts = [
-        "status" => OrderStatus::class,
-        "fulfillment_type" => OrderFufillmentType::class,
+        'status' => OrderStatus::class,
+        'fulfillment_type' => OrderFufillmentType::class,
     ];
 
     public function items(): HasMany

@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Seller;
 use App\Models\Shop;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
@@ -19,7 +18,7 @@ class ShopSeeder extends Seeder
         Shop::factory()
             ->count($sellers->count())
             ->sequence(
-                fn(Sequence $sequence) => ["seller_id" => $sellers[$sequence->index]]
+                fn (Sequence $sequence) => ['seller_id' => $sellers[$sequence->index]]
             )
             ->create();
     }

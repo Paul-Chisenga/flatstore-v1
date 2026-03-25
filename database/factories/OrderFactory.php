@@ -18,7 +18,7 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            "payment_status" => $this->faker->randomElement(OrderPaymentStatus::values()),
+            'payment_status' => $this->faker->randomElement(OrderPaymentStatus::values()),
         ];
     }
 }

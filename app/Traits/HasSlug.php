@@ -41,8 +41,8 @@ trait HasSlug
     /**
      * Generate a unique slug for the model based on the given name.
      *
-     * @param Model $model The model instance for which the slug is being generated.
-     * @param string $name The name from which to generate the slug.
+     * @param  Model  $model  The model instance for which the slug is being generated.
+     * @param  string  $name  The name from which to generate the slug.
      * @return string The generated unique slug.
      */
     protected static function generateUniqueSlug($model, string $name): string
@@ -51,11 +51,11 @@ trait HasSlug
         $originalSlug = $slug;
         $i = 1;
         while (Slug::where('slug', $slug)->exists()) {
-            $slug = $originalSlug . '-' . $i++;
+            $slug = $originalSlug.'-'.$i++;
         }
+
         return $slug;
     }
-
 
     // Define relationships
     public function slugs(): MorphMany

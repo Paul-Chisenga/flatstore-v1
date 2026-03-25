@@ -17,8 +17,8 @@ class ProductReviewFactory extends Factory
     public function definition(): array
     {
         return [
-            "content" => $this->faker->paragraph(),
-            "rating" => $this->faker->numberBetween(1, 5),
+            'content' => $this->faker->paragraph(),
+            'rating' => $this->faker->numberBetween(1, 5),
         ];
     }
 }

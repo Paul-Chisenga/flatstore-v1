@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Product;
 use App\Models\ProductTag;
 use App\Models\Tag;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ProductTagSeeder extends Seeder
@@ -21,7 +20,7 @@ class ProductTagSeeder extends Seeder
         ProductTag::factory()
             ->count($products->count() * 2) // 2 tags per product
             ->sequence(
-                fn($sequence) => [
+                fn ($sequence) => [
                     'product_id' => $products->get($sequence->index % $products->count()),
                     'tag_id' => $tags->get($sequence->index % $tags->count()),
                 ]

@@ -21,7 +21,7 @@ class ProductVariation extends Model
         'width',
         'height',
         'depth',
-        'is_default'
+        'is_default',
     ];
 
     public function product(): BelongsTo

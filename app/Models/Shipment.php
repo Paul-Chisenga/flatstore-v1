@@ -20,15 +20,15 @@ class Shipment extends Model
         'shipped_at',
         'delivered_at',
         'estimated_delivery',
-        'shipping_cost'
+        'shipping_cost',
     ];
 
     protected $casts = [
         'shipped_at' => 'datetime',
         'delivered_at' => 'datetime',
         'estimated_delivery' => 'datetime',
-        "shipping_cost" => 'decimal:2',
-        "status" => ShipmentStatus::class
+        'shipping_cost' => 'decimal:2',
+        'status' => ShipmentStatus::class,
     ];
 
     public function order(): BelongsTo

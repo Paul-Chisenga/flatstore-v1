@@ -19,8 +19,8 @@ class ProductMediaFactory extends Factory
     public function definition(): array
     {
         return [
-            "type" => $this->faker->randomElement(ProductMediaType::values()),
-            "is_primary" => false,
+            'type' => $this->faker->randomElement(ProductMediaType::values()),
+            'is_primary' => false,
         ];
     }
 
@@ -31,7 +31,7 @@ class ProductMediaFactory extends Factory
     {
         return $this->afterMaking(function (ProductMedia $productMedia) {
             // If product_variation_id is set but product_id is not, get it from the variation
-            if ($productMedia->product_variation_id && !$productMedia->product_id) {
+            if ($productMedia->product_variation_id && ! $productMedia->product_id) {
                 $productMedia->product_id = $productMedia->productVariation->product_id;
             }
         });

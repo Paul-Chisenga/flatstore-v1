@@ -11,11 +11,12 @@ class Shop extends Model
 {
     /** @use HasFactory<\Database\Factories\ShopFactory> */
     use HasFactory;
+
     use HasSlug;
 
     protected $fillable = ['name'];
 
-    function seller()
+    public function seller()
     {
         return $this->belongsTo(Seller::class);
     }

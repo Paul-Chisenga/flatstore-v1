@@ -12,6 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         //
+        // temp: disable csrf for testing
+        $middleware->validateCsrfTokens(['/login']);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

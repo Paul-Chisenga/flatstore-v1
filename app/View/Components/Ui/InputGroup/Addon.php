@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\Ui;
+namespace App\View\Components\Ui\InputGroup;
 
 use App\View\Components\BaseUiComponent;
 
-class InputGroupAddon extends BaseUiComponent
+class Addon extends BaseUiComponent
 {
     private const BASE_CLASSES = "text-muted-foreground h-auto gap-2 py-1.5 text-lg font-medium group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-4 flex cursor-text items-center justify-center select-none";
 
@@ -23,7 +23,7 @@ class InputGroupAddon extends BaseUiComponent
         protected string $class = ''
     ) {
         parent::__construct(
-            viewPath: 'components.ui.input-group-addon',
+            viewPath: 'components.ui.input-group.addon',
             baseClasses: [self::BASE_CLASSES, self::ALIGN_VARIANTS[$align] ?? self::ALIGN_VARIANTS['inline-start']],
             class: $class
         );

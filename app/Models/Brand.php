@@ -12,14 +12,14 @@ class Brand extends Model
 {
     /** @use HasFactory<\Database\Factories\BrandFactory> */
     use HasFactory;
-    use HasSlug;
 
+    use HasSlug;
 
     protected $fillable = ['name', 'description'];
 
     public function logo(): MorphOne
     {
-        return $this->morphOne(Attachment::class, "attachable");
+        return $this->morphOne(Attachment::class, 'attachable');
     }
 
     public function products(): HasMany

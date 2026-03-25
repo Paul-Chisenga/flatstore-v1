@@ -14,10 +14,11 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        "payment_status",
+        'payment_status',
     ];
+
     protected $casts = [
-        "payment_status" => PaymentStatus::class,
+        'payment_status' => PaymentStatus::class,
     ];
 
     public function items(): HasMany
@@ -44,5 +45,4 @@ class Order extends Model
     {
         return $this->hasMany(Payment::class);
     }
-
 }

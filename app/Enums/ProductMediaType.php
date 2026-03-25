@@ -12,4 +12,3 @@ enum ProductMediaType: string
     case VIDEO = 'video';
     case THUMBNAIL = 'thumbnail';
 }
-

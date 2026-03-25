@@ -12,14 +12,13 @@ class Profile extends Model
     /** @use HasFactory<\Database\Factories\ProfileFactory> */
     use HasFactory;
 
-
     protected $fillable = [
-        "name",
-        "email",
-        "first_name",
-        "last_name",
-        "phone",
-        "birth_date"
+        'name',
+        'email',
+        'first_name',
+        'last_name',
+        'phone',
+        'birth_date',
     ];
 
     public function profilePhoto(): MorphOne

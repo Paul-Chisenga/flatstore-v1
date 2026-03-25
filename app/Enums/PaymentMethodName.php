@@ -8,9 +8,9 @@ enum PaymentMethodName: string
 {
     use HasEnumValues;
 
-    case BANK = "bank_transfer";
-    case MOBILE_MONEY = "mobile_money";
-    case PAYPAL = "paypal";
+    case BANK = 'bank_transfer';
+    case MOBILE_MONEY = 'mobile_money';
+    case PAYPAL = 'paypal';
 
     public function label(): string
     {

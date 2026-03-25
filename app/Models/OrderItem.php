@@ -16,7 +16,7 @@ class OrderItem extends Model
         'quantity',
         'unit_price',
         'tax_amount',
-        'discount_value'
+        'discount_value',
     ];
 
     public function productVariation(): BelongsTo

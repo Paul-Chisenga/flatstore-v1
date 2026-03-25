@@ -12,6 +12,7 @@ class Category extends Model
 {
     /** @use HasFactory<\Database\Factories\CategoryFactory> */
     use HasFactory;
+
     use HasSlug;
 
     protected $fillable = ['name', 'description'];

@@ -7,7 +7,6 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-
     /**
      * Seed the application's database.
      */
@@ -34,7 +33,7 @@ class DatabaseSeeder extends Seeder
                 OrderSeeder::class,
                 SubOrderSeeder::class,
                 OrderItemSeeder::class,
-                    // ProductReviewSeeder::class
+                // ProductReviewSeeder::class
                 TagSeeder::class,
                 ProductTagSeeder::class,
                 AttachmentSeeder::class,

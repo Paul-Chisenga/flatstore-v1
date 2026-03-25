@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Ui;
+namespace App\View\Components\Ui\InputGroup;
 
 use App\View\Components\BaseUiComponent;
 
@@ -13,6 +13,10 @@ class InputGroup extends BaseUiComponent
      */
     public function __construct(protected string $class = '')
     {
-        parent::__construct(viewPath: 'components.ui.input-group', baseClasses: self::BASE_CLASSES, class: $class);
+        parent::__construct(
+            viewPath: 'components.ui.input-group.input-group',
+            baseClasses: self::BASE_CLASSES,
+            class: $class
+        );
     }
 }

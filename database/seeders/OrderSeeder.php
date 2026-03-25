@@ -18,10 +18,9 @@ class OrderSeeder extends Seeder
         Order::factory()
             ->count($buyers->count())
             ->sequence(
-                fn($sequence) =>
-                [
+                fn ($sequence) => [
                     'buyer_id' => $buyers->get($sequence->index),
-                    "payment_method_id" => PaymentMethod::inRandomOrder()->first(),
+                    'payment_method_id' => PaymentMethod::inRandomOrder()->first(),
                 ]
             )
             ->create();

@@ -15,7 +15,7 @@ class ShippingMethod extends Model
         'name',
         'description',
         'estimated_days',
-        'is_active'
+        'is_active',
     ];
 
     public function sellerShippingMethods(): HasMany

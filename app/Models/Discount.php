@@ -17,6 +17,7 @@ class Discount extends Model
         'valid_from',
         'valid_to',
     ];
+
     protected $casts = [
         'valid_from' => 'datetime',
         'valid_to' => 'datetime',
@@ -27,6 +28,7 @@ class Discount extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
     public function productVariation()
     {
         return $this->belongsTo(ProductVariation::class);

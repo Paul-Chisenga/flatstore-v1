@@ -1,13 +1,13 @@
 <?php
 
-namespace App\View\Components\Ui;
+namespace App\View\Components\Ui\InputGroup;
 
 use App\Enums\Components\Button\Intent;
 use App\Enums\Components\Button\Size;
 use App\Enums\Components\Button\Variant;
 use App\View\Components\BaseUiComponent;
 
-class InputGroupButton extends BaseUiComponent
+class Button extends BaseUiComponent
 {
     private const BASE_CLASSES = 'gap-2 text-lg shadow-none flex items-center';
 
@@ -25,7 +25,7 @@ class InputGroupButton extends BaseUiComponent
         protected string $class = ''
     ) {
         parent::__construct(
-            viewPath: 'components.ui.input-group-button',
+            viewPath: 'components.ui.input-group.button',
             baseClasses: [self::BASE_CLASSES, self::SIZE_VARIANTS[$size] ?? self::SIZE_VARIANTS['xs']],
             class: $class
         );

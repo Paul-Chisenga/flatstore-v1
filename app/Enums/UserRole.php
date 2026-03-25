@@ -22,5 +22,4 @@ enum UserRole: string
             self::Seller => 'Seller',
         };
     }
-
 }

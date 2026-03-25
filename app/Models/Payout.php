@@ -18,6 +18,7 @@ class Payout extends Model
         'status',
         'transaction_reference',
     ];
+
     protected $casts = [
         'status' => PayoutStatus::class,
     ];

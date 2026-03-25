@@ -19,9 +19,9 @@ class SubOrderFactory extends Factory
     public function definition(): array
     {
         return [
-            "status" => $this->faker->randomElement(OrderStatus::values()),
-            "fulfillment_type" => $this->faker->randomElement(OrderFufillmentType::values()),
-            "seller_shipping_method_id" => $this->faker->numberBetween(1, 10), // Assuming you have 10 shipping methods seeded
+            'status' => $this->faker->randomElement(OrderStatus::values()),
+            'fulfillment_type' => $this->faker->randomElement(OrderFufillmentType::values()),
+            'seller_shipping_method_id' => $this->faker->numberBetween(1, 10), // Assuming you have 10 shipping methods seeded
         ];
     }
 }

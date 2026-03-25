@@ -20,7 +20,7 @@ class AttachmentSeeder extends Seeder
         Attachment::factory()
             ->count(2)
             ->sequence(
-                fn(Sequence $sequence) => [
+                fn (Sequence $sequence) => [
                     'attachable_id' => $profiles[$sequence->index],
                     'attachable_type' => Profile::class,
                 ]
@@ -31,7 +31,7 @@ class AttachmentSeeder extends Seeder
         Attachment::factory()
             ->count($productMedia->count())
             ->sequence(
-                fn(Sequence $sequence) => [
+                fn (Sequence $sequence) => [
                     'attachable_id' => $productMedia->get($sequence->index),
                     'attachable_type' => ProductMedia::class,
                 ]

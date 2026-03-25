@@ -17,11 +17,11 @@ class ProfileFactory extends Factory
     public function definition(): array
     {
         return [
-            "first_name" => $this->faker->firstName(),
-            "last_name" => $this->faker->lastName(),
-            "email" => $this->faker->safeEmail(),
-            "phone" => $this->faker->phoneNumber(),
-            "birth_date" => $this->faker->date(),
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'email' => $this->faker->safeEmail(),
+            'phone' => $this->faker->phoneNumber(),
+            'birth_date' => $this->faker->date(),
         ];
     }
 }

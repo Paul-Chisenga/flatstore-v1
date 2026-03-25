@@ -17,10 +17,10 @@ class AttachmentFactory extends Factory
     public function definition(): array
     {
         return [
-            "file_name" => $this->faker->word() . "." . "png",
-            "file_type" => "image/png",
-            "file_size" => $this->faker->numberBetween(1000, 1000000),
-            "file_url" => $this->faker->imageUrl(),
+            'file_name' => $this->faker->word().'.'.'png',
+            'file_type' => 'image/png',
+            'file_size' => $this->faker->numberBetween(1000, 1000000),
+            'file_url' => $this->faker->imageUrl(),
         ];
     }
 }

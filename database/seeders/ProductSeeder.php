@@ -23,7 +23,7 @@ class ProductSeeder extends Seeder
         Product::factory()
             ->count(50)
             ->sequence(
-                fn($sequence) => [
+                fn ($sequence) => [
                     'seller_id' => $sellers->get($sequence->index % $sellers->count()),
                     'category_id' => $categories->get($sequence->index % $categories->count()),
                     'brand_id' => $brands->get($sequence->index % $brands->count()),

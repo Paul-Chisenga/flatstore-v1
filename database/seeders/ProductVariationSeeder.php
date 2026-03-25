@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Product;
 use App\Models\ProductVariation;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ProductVariationSeeder extends Seeder
@@ -19,7 +18,7 @@ class ProductVariationSeeder extends Seeder
         ProductVariation::factory()
             ->count($products->count() * 2) // Create 2 variations per product
             ->sequence(
-                fn($sequence) => ['product_id' => $products->get($sequence->index % $products->count())]
+                fn ($sequence) => ['product_id' => $products->get($sequence->index % $products->count())]
             )
             ->create();
     }

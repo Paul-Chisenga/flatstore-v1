@@ -11,7 +11,7 @@ class ShipmentItem extends Model
     use HasFactory;
 
     protected $fillable = [
-        'quantity'
+        'quantity',
     ];
 
     public function shipment()

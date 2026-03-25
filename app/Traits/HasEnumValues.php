@@ -9,6 +9,6 @@ trait HasEnumValues
 {
     public static function values(): array
     {
-        return array_map(fn(self $e) => $e->value, self::cases());
+        return array_map(fn (self $e) => $e->value, self::cases());
     }
 }
