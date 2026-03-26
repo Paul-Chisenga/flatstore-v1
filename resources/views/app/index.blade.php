@@ -12,7 +12,7 @@
 @endphp
 
 <x-root>
-    <div class="max-w-2xl mx-auto pb-6">
+    <div class="max-w-2xl mx-auto pb-6 px-4">
         {{-- Special offers section --}}
         <x-ui.section>
             <x-ui.section.header>
@@ -93,10 +93,14 @@
                 {{-- Filters --}}
                 <div class="flex gap-4 overflow-x-auto mb-6 px-4">
                     <x-ui.button :intent="Intent::Primary" :size="Size::Sm">All</x-ui.button>
-                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline" :size="Size::Sm">Clothes</x-ui.button>
-                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline" :size="Size::Sm">Shoes</x-ui.button>
-                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline" :size="Size::Sm">Bags</x-ui.button>
-                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline" :size="Size::Sm">Electronics</x-ui.button>
+                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline"
+                        :size="Size::Sm">Clothes</x-ui.button>
+                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline"
+                        :size="Size::Sm">Shoes</x-ui.button>
+                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline"
+                        :size="Size::Sm">Bags</x-ui.button>
+                    <x-ui.button :intent="Intent::Primary" :variant="Variant::Outline"
+                        :size="Size::Sm">Electronics</x-ui.button>
                 </div>
                 {{-- Products grid --}}
                 <div class="grid grid-cols-2 gap-4 px-4">

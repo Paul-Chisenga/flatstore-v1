@@ -1,0 +1,1 @@
+ngrok http --domain=obviously-normal-aphid.ngrok-free.app 8000

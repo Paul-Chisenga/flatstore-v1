@@ -3,6 +3,13 @@
         <!-- Session Status -->
         <x-auth.session-status class="mb-4" :status="session('status')" />
 
+        {{-- Display login error message --}}
+        @error('login_error')
+            <div class="mb-4 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {{ $message }}
+            </div>
+        @enderror
+
         <form method="POST" action="{{ route('login.post') }}">
             @csrf
 
@@ -52,6 +59,15 @@
                 href="{{ route('register') }}">
                 Don't have an account?
             </a>
+            {{-- Social login using button --}}
+            <div class="mt-4">
+                <a href="{{ route('google.redirect') }}">
+                    <x-ui.button :intent="App\Enums\Components\Button\Intent::Danger" class="w-full">
+                        <ion-icon name="logo-google" class="me-2"></ion-icon>
+                        Log in with Google
+                    </x-ui.button>
+                </a>
+            </div>
         </form>
     </x-headers.guest>
 </x-root>

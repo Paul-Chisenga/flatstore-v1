@@ -1,12 +1,12 @@
 <?php
 
+use App\Enums\SocialProvider;
 use App\Enums\UserRole;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -20,6 +20,11 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', UserRole::values())->default(UserRole::Buyer->value);
             $table->rememberToken();
+
+            // Social login fields
+            $table->string('provider_id')->nullable();
+            $table->enum('provider', SocialProvider::values())->nullable();
+
             $table->timestamps();
         });
 

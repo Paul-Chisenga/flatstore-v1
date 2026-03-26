@@ -22,25 +22,31 @@ Route::middleware('guest')->group(function () {
     // Login routes
     Route::get('/login', [LoginController::class, 'index'])
         ->name('login');
-    Route::post('/login', [LoginController::class, 'login'])
+    Route::post('/login', [LoginController::class, 'loginWeb'])
         ->name('login.post')
         ->middleware('throttle:login');
+    // social login routes
+    Route::get('/auth/google/redirect', [LoginController::class, 'googleRedirect'])
+        ->name('google.redirect');
+    Route::get('/auth/google/callback', [LoginController::class, 'googleLogin'])
+        ->name('google.callback');
     // Registration routes
     Route::get('/register', [RegistrationController::class, 'index'])
         ->name('register');
-    Route::post('/register', [RegistrationController::class, 'register'])
+    Route::post('/register', [RegistrationController::class, 'registerWeb'])
         ->name('register.post');
     // Password reset routes
     Route::get('/forgot-password', [PasswordResetController::class, 'forgotPassword'])
         ->name('password.request');
-    Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLinkEmail'])
+    Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLinkWeb'])
         ->name('password.email')
         ->middleware('throttle:forgot-password');
     Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetPasswordForm'])
         ->name('password.reset');
-    Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])
+    Route::post('/reset-password', [PasswordResetController::class, 'resetPasswordWeb'])
         ->name('password.store')
         ->middleware('throttle:reset-password');
+
 });
 
 Route::middleware('auth')->group(function () {

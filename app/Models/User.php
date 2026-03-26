@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\SocialProvider;
 use App\Enums\UserRole;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -51,6 +52,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'role',
+        'email_verified_at',
+        'provider_id',
+        'provider',
     ];
 
     /**
@@ -85,5 +89,18 @@ class User extends Authenticatable implements MustVerifyEmail
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function isSocialAccount(): bool
+    {
+        $hasProviderId = filled($this->provider_id);
+        $hasValidProvider = SocialProvider::tryFrom((string) $this->provider) !== null;
+
+        return $hasProviderId && $hasValidProvider;
+    }
+
+    public function canResetPassword(): bool
+    {
+        return !$this->isSocialAccount();
     }
 }

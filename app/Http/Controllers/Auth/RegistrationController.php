@@ -2,40 +2,25 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
-use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Facades\Auth;
+use App\Services\Auth\RegisterService;
 use Illuminate\View\View;
 
 class RegistrationController extends Controller
 {
-    public function __construct(private Dispatcher $events) {}
+    public function __construct(private RegisterService $registerService) {}
 
     public function index(): View
     {
         return view('app.auth.register');
     }
 
-    public function register(RegisterRequest $request)
+    public function registerWeb(RegisterRequest $request)
     {
         $validated = $request->validated();
 
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => $validated['password'],
-            'role' => UserRole::Buyer,
-        ]);
-
-        // dispatch registered event for any listeners (e.g. send welcome email)
-        $this->events->dispatch(new Registered($user));
-
-        // log the user in after registration
-        Auth::login($user);
+        $this->registerService->registerWeb($validated);
 
         // redirect to intended page or the protected page
         return redirect()->intended(route('protected', absolute: false));
