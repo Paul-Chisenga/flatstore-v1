@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Services\Auth\LoginService;
 use App\Utils\CustomerApp;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -104,5 +105,24 @@ class AuthController extends Controller
                 ]
             );
         }
+    }
+
+    public function logoutWeb(Request $request): RedirectResponse
+    {
+
+        $this->loginService->logoutWeb();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
+    }
+
+    public function logoutApi(): JsonResponse
+    {
+        $this->loginService->logoutApi();
+
+        return response()
+            ->json(['message' => 'Logged out successfully.'],
+                status: 200);
     }
 }

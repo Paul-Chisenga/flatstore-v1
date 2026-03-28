@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificatonController;
-use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegistrationController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +27,5 @@ Route::middleware('auth:sanctum')->group(function () {
         ->middleware('throttle:6,1'); // limit to 6 attempts per minute
 
     // Other route
-    Route::post('/logout', [LogoutController::class, 'logout'])
-        ->name('logout');
+    Route::delete('/logout', [AuthController::class, 'logoutApi']);
 });

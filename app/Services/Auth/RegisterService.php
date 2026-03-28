@@ -35,7 +35,7 @@ class RegisterService
         $user = $this->createUserAction->execute(CreateUserDTO::fromArray($data));
 
         // dispatch registered event for any listeners (e.g. send welcome email)
-        // $this->events->dispatch(new Registered($user, true));
+        $this->events->dispatch(new Registered($user, true));
 
         return $this->createApiLoginResponseData->execute($user);
     }

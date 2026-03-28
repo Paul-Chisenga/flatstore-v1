@@ -54,4 +54,15 @@ class LoginService
         return $this->createApiLoginResponseData
             ->execute($this->handleGoogleLoginAction->execute(api: true));
     }
+
+    public function logoutWeb(): void
+    {
+        Auth::logout();
+    }
+
+    public function logoutApi(): void
+    {
+        // Revoke all tokens...
+        Auth::user()->tokens()->delete();
+    }
 }

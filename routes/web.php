@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificatonController;
-use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\HomeController;
@@ -61,7 +60,7 @@ Route::middleware('auth')->group(function () {
         ->middleware('throttle:6,1'); // limit to 6 attempts per minute
 
     // Other route
-    Route::post('/logout', [LogoutController::class, 'logout'])
+    Route::post('/logout', [AuthController::class, 'logoutWeb'])
         ->name('logout');
 });
 
