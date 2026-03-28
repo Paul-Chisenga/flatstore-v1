@@ -15,6 +15,9 @@ class CreateUserAction
             'email' => $data->email,
             'password' => $data->password,
             'role' => UserRole::Buyer,
+            'provider_id' => $data->provider_id,
+            'provider' => $data->provider,
+            'email_verified_at' => $data->email_verified_at,
         ]);
 
         return $user;

@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'app_scheme' => env('APP_SCHEME', 'flatstore://'),
+
 ];

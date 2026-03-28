@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificatonController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegistrationController;
@@ -20,15 +20,15 @@ Route::prefix('products')->group(function () {
 
 Route::middleware('guest')->group(function () {
     // Login routes
-    Route::get('/login', [LoginController::class, 'index'])
+    Route::get('/login', [AuthController::class, 'index'])
         ->name('login');
-    Route::post('/login', [LoginController::class, 'loginWeb'])
+    Route::post('/login', [AuthController::class, 'loginWeb'])
         ->name('login.post')
         ->middleware('throttle:login');
     // social login routes
-    Route::get('/auth/google/redirect', [LoginController::class, 'googleRedirect'])
+    Route::get('/auth/google/redirect', [AuthController::class, 'googleRedirectWeb'])
         ->name('google.redirect');
-    Route::get('/auth/google/callback', [LoginController::class, 'googleLogin'])
+    Route::get('/google/callback', [AuthController::class, 'googleLoginWeb'])
         ->name('google.callback');
     // Registration routes
     Route::get('/register', [RegistrationController::class, 'index'])
@@ -53,10 +53,10 @@ Route::middleware('auth')->group(function () {
     // Email verification routes
     Route::get('/email/verify', [EmailVerificatonController::class, 'index'])
         ->name('verification.notice');
-    Route::get('/email/verify/{id}/{hash}', [EmailVerificatonController::class, 'verify'])
+    Route::get('/email/verify/{id}/{hash}', [EmailVerificatonController::class, 'verifyWeb'])
         ->name('verification.verify')
         ->middleware(['signed', 'throttle:6,1']); // limit to 6 attempts per minute
-    Route::post('/email/resend', [EmailVerificatonController::class, 'resend'])
+    Route::post('/email/resend', [EmailVerificatonController::class, 'resendWeb'])
         ->name('verification.resend')
         ->middleware('throttle:6,1'); // limit to 6 attempts per minute
 

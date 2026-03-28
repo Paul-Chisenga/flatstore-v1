@@ -25,4 +25,13 @@ class RegistrationController extends Controller
         // redirect to intended page or the protected page
         return redirect()->intended(route('protected', absolute: false));
     }
+
+    public function registerApi(RegisterRequest $request)
+    {
+        $validated = $request->validated();
+
+        $loginResponse = $this->registerService->registerApi($validated);
+
+        return response($loginResponse, status: 201);
+    }
 }
