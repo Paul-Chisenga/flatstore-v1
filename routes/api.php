@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificatonController;
+use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegistrationController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,15 @@ Route::post('/register', [RegistrationController::class, 'registerApi']);
 Route::get('/email/verify/redirect/{id}/{hash}', [EmailVerificatonController::class, 'verifyApiRedirect'])
     ->middleware('signed')
     ->name('verification.verify.api');
+
+// Password reset routes
+Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLinkApi'])
+    ->middleware('throttle:forgot-password');
+Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetPasswordFormApi'])
+    ->name('password.reset.api');
+Route::post('/reset-password', [PasswordResetController::class, 'resetPasswordApi'])
+    ->middleware('throttle:reset-password');
+
 // Protected routes that do not require email verification
 Route::middleware('auth:sanctum')->group(function () {
     // Email verification routes
