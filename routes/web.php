@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificatonController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Seller\ProductController as SellerProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])
@@ -46,6 +49,19 @@ Route::middleware('guest')->group(function () {
         ->name('password.store')
         ->middleware('throttle:reset-password');
 
+    /** Place holder content routes
+     * Routes to fetch content from dummyjson.com for testing purposes. These routes can be removed once the actual content is integrated.
+     */
+    Route::prefix('/dummy-content')->group(function () {
+        Route::get('/', function () {
+            return view('app.dummy-content');
+        })->name('dummy.content');
+        Route::post('/categories', [\App\Http\Controllers\DummyContentController::class, 'categories'])
+            ->name('dummy.categories');
+        Route::post('/products', [\App\Http\Controllers\DummyContentController::class, 'products'])
+            ->name('dummy.products');
+    });
+
 });
 
 Route::middleware('auth')->group(function () {
@@ -69,3 +85,50 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('app.protected');
     })->name('protected');
 });
+
+// Admin routes (can be expanded with more specific admin functionalities)
+Route::prefix('admin')
+    ->group(function () {
+        Route::get('/', function () {
+            return redirect()->route('admin.dashboard');
+        });
+        Route::get('/dashboard', function () {
+            return view('app.admin.index');
+        })->name('admin.dashboard');
+        // Brands
+        Route::get('/brands', [BrandController::class, 'index'])
+            ->name('admin.brands');
+        Route::get('/brands/create', [BrandController::class, 'create'])
+            ->name('admin.brands.create');
+        Route::post('/brands', [BrandController::class, 'store'])
+            ->name('admin.brands.store');
+        // Categories
+        Route::get('/categories', [CategoryController::class, 'index'])
+            ->name('admin.categories');
+        Route::get('/categories/create', [CategoryController::class, 'create'])
+            ->name('admin.categories.create');
+        Route::post('/categories', [CategoryController::class, 'store'])
+            ->name('admin.categories.store');
+    });
+
+// Seller routes (can be expanded with more specific seller functionalities)
+Route::prefix('seller')
+    ->group(function () {
+        Route::get('/', function () {
+            return redirect()->route('seller.dashboard');
+        });
+        Route::get('/dashboard', function () {
+            return view('app.seller.index');
+        })->name('seller.dashboard');
+        // Products
+        Route::get('/products', [SellerProductController::class, 'index'])
+            ->name('seller.products');
+        Route::get('/products/create', [SellerProductController::class, 'create'])
+            ->name('seller.products.create');
+        Route::post('/products', [SellerProductController::class, 'store'])
+            ->name('seller.products.store');
+        Route::get('/products/{id}', [SellerProductController::class, 'show'])
+            ->name('seller.products.show');
+        Route::get('/products/{id}/edit', [SellerProductController::class, 'edit'])
+            ->name('seller.products.edit');
+    });

@@ -13,9 +13,17 @@
     'size' => $size ?? '',
     'intent' => $intent ?? '',
     'class' => $class ?? '',
+    'href' => $href ?? null,
 ])
 
-<button type="{{ $type }}" data-slot="button" data-variant="{{ $variant }}" data-size="{{ $size }}"
-    data-intent="{{ $intent }}" {{ $attributes->merge(['class' => $class]) }}>
-    {{ $slot }}
-</button>
+@if ($href)
+    <a href="{{ $href }}" data-slot="button" data-variant="{{ $variant }}" data-size="{{ $size }}"
+        data-intent="{{ $intent }}" {{ $attributes->merge(['class' => $class]) }}>
+        {{ $slot }}
+    </a>
+@else
+    <button type="{{ $type }}" data-slot="button" data-variant="{{ $variant }}" data-size="{{ $size }}"
+        data-intent="{{ $intent }}" {{ $attributes->merge(['class' => $class]) }}>
+        {{ $slot }}
+    </button>
+@endif
