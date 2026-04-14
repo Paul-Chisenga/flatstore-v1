@@ -1,21 +1,3 @@
-@php
-    $brands = [];
-    // $brands = [
-    //     (object) [
-    //         'name' => 'Brand 1',
-    //         'description' => 'This is the description for Brand 1.',
-    //     ],
-    //     (object) [
-    //         'name' => 'Brand 2',
-    //         'description' => 'This is the description for Brand 2.',
-    //     ],
-    //     (object) [
-    //         'name' => 'Brand 3',
-    //         'description' => null,
-    //     ],
-    // ];
-@endphp
-
 <x-admin.root>
     <x-admin.page-header title="Brands" description="Manage your store's brands.">
         <x-ui.button class="ms-3" href="{{ route('admin.brands.create') }}">

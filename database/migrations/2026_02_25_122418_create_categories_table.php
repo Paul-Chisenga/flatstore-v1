@@ -20,6 +20,9 @@ return new class extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('categories')->cascadeOnDelete();
 
+            // metadata - will contain additional information about the category, such as display settings, icons, etc.
+            $table->json('metadata')->nullable();
+
             $table->timestamps();
         });
     }

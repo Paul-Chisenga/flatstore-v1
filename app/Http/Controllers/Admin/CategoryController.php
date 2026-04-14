@@ -2,64 +2,79 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Dtos\Admin\Category\CreateCategoryDTO;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\CategoryRequest;
+use App\Models\Category;
+use App\Services\Admin\CategoryService;
+use Exception;
+use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(private CategoryService $categoryService) {}
+
+    public function index(): View
     {
-        return view('app.admin.categories.index');
+        $categories = $this->categoryService->getAll();
+
+        return view('app.admin.categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(): View
     {
         return view('app.admin.categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        try {
+            $this->categoryService->create(CreateCategoryDTO::fromArray($request->validated()));
+
+            return redirect()->route('admin.categories')->with('success', 'Category created successfully.');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to create category: '.$e->getMessage()]);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Category $category): View
     {
-        //
+        $parentCategories = Category::query()->whereNull('parent_id')->where('id', '!=', $category->id)->get();
+
+        return view('app.admin.categories.edit', compact('category', 'parentCategories'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        try {
+            $this->categoryService->update($category, CreateCategoryDTO::fromArray($request->validated()));
+
+            return redirect()->route('admin.categories')->with('success', 'Category updated successfully.');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to update category: '.$e->getMessage()]);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(Category $category)
     {
-        //
+        $this->categoryService->delete($category);
+
+        return redirect()->route('admin.categories')->with('success', 'Category deleted successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function createChild(Category $parentCategory): View
     {
-        //
+        return view('app.admin.categories.create-child', compact('parentCategory'));
+    }
+
+    public function storeChild(CategoryRequest $request, Category $parentCategory)
+    {
+        try {
+            $this->categoryService->addChild($parentCategory, CreateCategoryDTO::fromArray($request->validated()));
+
+            return redirect()->route('admin.categories')->with('success', 'Child category created successfully.');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to create child category: '.$e->getMessage()]);
+        }
     }
 }

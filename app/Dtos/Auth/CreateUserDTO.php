@@ -2,7 +2,9 @@
 
 namespace App\Dtos\Auth;
 
-class CreateUserDTO
+use App\Contracts\Dto;
+
+class CreateUserDTO implements Dto
 {
     /**
      * Create a new class instance.
@@ -20,7 +22,7 @@ class CreateUserDTO
 
     public static function fromArray(array $data): static
     {
-        return new self(
+        return new static(
             name: $data['name'],
             email: $data['email'],
             password: $data['password'],

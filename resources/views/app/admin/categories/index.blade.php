@@ -1,7 +1,3 @@
-@php
-    $categories = [];
-@endphp
-
 <x-admin.root>
     <x-admin.page-header title="Categories" description="Manage your store's categories.">
         <x-ui.button class="ms-3" href="{{ route('admin.categories.create') }}">

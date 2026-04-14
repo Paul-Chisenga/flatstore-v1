@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasSlug;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,7 +16,22 @@ class Category extends Model
 
     use HasSlug;
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'metadata'];
+
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => strtolower($value),
+        );
+    }
+
+    protected function metadata(): Attribute
+    {
+        return Attribute::make(
+            get: fn (?string $value) => $value ? json_decode($value, true) : null,
+            set: fn (?array $value) => $value ? json_encode($value) : null,
+        );
+    }
 
     public function parent(): BelongsTo
     {

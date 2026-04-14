@@ -2,7 +2,9 @@
 
 namespace App\Dtos\Auth;
 
-class LoginDTO
+use App\Contracts\Dto;
+
+class LoginDTO implements Dto
 {
     /**
      * Create a new class instance.
@@ -12,7 +14,7 @@ class LoginDTO
         //
     }
 
-    public static function fromArray(array $data): self
+    public static function fromArray(array $data): static
     {
         return new self(
             email: $data['email'],

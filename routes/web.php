@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SellerController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificatonController;
 use App\Http\Controllers\Auth\PasswordResetController;
@@ -102,6 +103,14 @@ Route::prefix('admin')
             ->name('admin.brands.create');
         Route::post('/brands', [BrandController::class, 'store'])
             ->name('admin.brands.store');
+        Route::get('/brands/{brand}', [BrandController::class, 'show'])
+            ->name('admin.brands.show');
+        Route::get('/brands/{brand}/edit', [BrandController::class, 'edit'])
+            ->name('admin.brands.edit');
+        Route::put('/brands/{brand}', [BrandController::class, 'update'])
+            ->name('admin.brands.update');
+        Route::delete('/brands/{brand}', [BrandController::class, 'destroy'])
+            ->name('admin.brands.destroy');
         // Categories
         Route::get('/categories', [CategoryController::class, 'index'])
             ->name('admin.categories');
@@ -109,6 +118,23 @@ Route::prefix('admin')
             ->name('admin.categories.create');
         Route::post('/categories', [CategoryController::class, 'store'])
             ->name('admin.categories.store');
+        Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])
+            ->name('admin.categories.edit');
+        Route::put('/categories/{category}', [CategoryController::class, 'update'])
+            ->name('admin.categories.update');
+        Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])
+            ->name('admin.categories.destroy');
+        Route::get('/categories/{parentCategory}/create-child', [CategoryController::class, 'createChild'])
+            ->name('admin.categories.create-child');
+        Route::post('/categories/{parentCategory}/create-child', [CategoryController::class, 'storeChild'])
+            ->name('admin.categories.store-child');
+        // Sellers
+        Route::get('/sellers', [SellerController::class, 'index'])
+            ->name('admin.sellers');
+        Route::get('/sellers/create', [SellerController::class, 'create'])
+            ->name('admin.sellers.create');
+        Route::post('/sellers', [SellerController::class, 'store'])
+            ->name('admin.sellers.store');
     });
 
 // Seller routes (can be expanded with more specific seller functionalities)
