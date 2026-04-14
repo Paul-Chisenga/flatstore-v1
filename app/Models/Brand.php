@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Brand extends Model
 {
@@ -16,18 +15,13 @@ class Brand extends Model
 
     use HasSlug;
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'logo_path'];
 
     protected function name(): Attribute
     {
         return Attribute::make(
             set: fn (string $value) => strtolower($value),
         );
-    }
-
-    public function logo(): MorphOne
-    {
-        return $this->morphOne(Attachment::class, 'attachable');
     }
 
     public function products(): HasMany

@@ -13,7 +13,7 @@ class Seller extends Model
     /** @use HasFactory<\Database\Factories\SellerFactory> */
     use HasFactory;
 
-    protected $fillable = ['type'];
+    protected $fillable = ['user_id', 'type'];
 
     protected $casts = ['type' => SellerType::class];
 
@@ -22,9 +22,9 @@ class Seller extends Model
         return $this->hasMany(Product::class);
     }
 
-    public function shops(): HasMany
+    public function stores(): HasMany
     {
-        return $this->hasMany(Shop::class);
+        return $this->hasMany(Store::class);
     }
 
     public function user(): BelongsTo

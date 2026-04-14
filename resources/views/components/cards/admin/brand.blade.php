@@ -1,6 +1,16 @@
 @props(['brand'])
 
 <x-ui.item.item variant="outline" class="bg-card">
+    @if ($brand->logo_path)
+        <x-ui.item.item-media variant="image" class="border">
+            <img src="{{ route('download', ['file_path' => $brand->logo_path]) }}" alt="{{ $brand->name }}"
+                class="object-contain" />
+            {{-- <x-ui.avatar.avatar>
+                <x-ui.avatar.avatar-image :src="$category->image_url" :alt="$category->name" />
+                <x-ui.avatar.avatar-fallback>{{ Str::upper(Str::substr($category->name, 0, 2)) }}</x-ui.avatar.avatar-fallback>
+            </x-ui.avatar.avatar> --}}
+        </x-ui.item.item-media>
+    @endif
     <x-ui.item.item-content>
         <x-ui.item.item-title>
             {{ $brand->name }}

@@ -3,7 +3,7 @@
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Seller;
-use App\Models\Shop;
+use App\Models\Store;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Brand::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Seller::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Shop::class)->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Store::class)->nullable()->constrained()->cascadeOnDelete();
 
             $table->timestamps();
         });

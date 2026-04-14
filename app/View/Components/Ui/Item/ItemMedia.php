@@ -6,12 +6,12 @@ use App\View\Components\BaseUiComponent;
 
 class ItemMedia extends BaseUiComponent
 {
-    private const BASE_CLASSES = 'shrink-0';
+    private const BASE_CLASSES = 'flex shrink-0 items-center justify-center gap-2 group-has-data-[slot=item-description]/item:translate-y-0.5 group-has-data-[slot=item-description]/item:self-start [&_svg]:pointer-events-none';
 
     private const VARIANTS = [
-        'default' => 'size-10 rounded-md',
-        'icon' => 'text-muted-foreground inline-flex size-10 items-center justify-center rounded-md bg-muted',
-        'image' => 'size-10 overflow-hidden rounded-md',
+        'default' => 'bg-transparent',
+        'icon' => "[&_svg:not([class*='size-'])]:size-4",
+        'image' => 'size-10 overflow-hidden rounded-sm group-data-[size=sm]/item:size-8 group-data-[size=xs]/item:size-6 [&_img]:size-full',
         'avatar' => 'size-10 rounded-full overflow-hidden',
     ];
 

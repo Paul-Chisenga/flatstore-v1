@@ -37,7 +37,6 @@ class BrandController extends Controller
      */
     public function store(BrandRequest $request)
     {
-
         try {
             $brand = $this->brandService->create(CreateBrandDTO::fromArray($request->validated()));
 

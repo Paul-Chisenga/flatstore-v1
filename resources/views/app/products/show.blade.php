@@ -6,8 +6,8 @@
     $discountLabel = 'Flash Sale';
     $discountPercent = 35;
     $discountEndsAt = 'Mar 31, 2026 • 11:59 PM';
-    $shopName = 'Tech Hub';
-    $shopUrl = '#';
+    $storeName = 'Tech Hub';
+    $storeUrl = '#';
     $brandName = 'Apple';
     $brandUrl = '#';
     $categoryName = 'Smartphones';
@@ -49,12 +49,12 @@
                         </x-ui.badge>
                     </div>
 
-                    {{-- Shop metadata --}}
+                    {{-- Store metadata --}}
                     <div class="mt-3 flex flex-col gap-1 text-xs text-muted-foreground">
                         <span>
-                            Shop:
-                            <a href="{{ $shopUrl }}" class="font-medium text-primary hover:underline">
-                                {{ $shopName }}
+                            Store:
+                            <a href="{{ $storeUrl }}" class="font-medium text-primary hover:underline">
+                                {{ $storeName }}
                             </a>
                         </span>
                         <span>

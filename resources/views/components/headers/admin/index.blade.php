@@ -7,13 +7,16 @@
         {{-- Nav --}}
         <nav class="hidden md:flex gap-6">
             <x-headers.admin.nav-link href="{{ route('admin.dashboard') }}">
-                dashboard
+                Dashboard
             </x-headers.admin.nav-link>
             <x-headers.admin.nav-link href="{{ route('admin.brands') }}">
-                brands
+                Brands
             </x-headers.admin.nav-link>
             <x-headers.admin.nav-link href="{{ route('admin.categories') }}">
-                categories
+                Categories
+            </x-headers.admin.nav-link>
+            <x-headers.admin.nav-link href="{{ route('admin.sellers') }}">
+                Sellers
             </x-headers.admin.nav-link>
         </nav>
         {{-- Account --}}

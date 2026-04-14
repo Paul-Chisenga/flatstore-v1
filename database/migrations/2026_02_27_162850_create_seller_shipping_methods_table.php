@@ -2,7 +2,7 @@
 
 use App\Models\Seller;
 use App\Models\ShippingMethod;
-use App\Models\Shop;
+use App\Models\Store;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('seller_shipping_methods', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Seller::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Shop::class)->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Store::class)->nullable()->constrained()->cascadeOnDelete();
             $table->foreignIdFor(ShippingMethod::class)->constrained()->cascadeOnDelete();
 
             $table->decimal('shipping_cost', 10, 2)->default(0.00);

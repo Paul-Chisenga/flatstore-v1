@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\SocialProvider;
-use App\Enums\UserRole;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -49,10 +48,9 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var list<string>
      */
     protected $fillable = [
-        'name', // temporary, used to test registration and login functionality, can be removed later
         'email',
         'password',
-        'role',
+        'role_id',
         'email_verified_at',
         'provider_id',
         'provider',
@@ -78,7 +76,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'role' => UserRole::class,
         ];
     }
 

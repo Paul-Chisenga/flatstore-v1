@@ -40,9 +40,9 @@ class Product extends Model
         return $this->belongsTo(Seller::class);
     }
 
-    public function shop(): BelongsTo
+    public function store(): BelongsTo
     {
-        return $this->belongsTo(Shop::class);
+        return $this->belongsTo(Store::class);
     }
 
     public function variations(): HasMany

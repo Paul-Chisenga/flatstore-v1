@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\S3Controller;
 use App\Http\Controllers\Seller\ProductController as SellerProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ Route::prefix('products')->group(function () {
     Route::get('/{id}', [ProductController::class, 'show'])
         ->name('products.show');
 });
+Route::get('/download', [S3Controller::class, 'downloadFile'])
+    ->name('download');
 
 Route::middleware('guest')->group(function () {
     // Login routes

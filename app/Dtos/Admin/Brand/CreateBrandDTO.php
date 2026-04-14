@@ -3,22 +3,22 @@
 namespace App\Dtos\Admin\Brand;
 
 use App\Contracts\Dto;
+use Illuminate\Http\UploadedFile;
 
 class CreateBrandDTO implements Dto
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct(public string $name, public ?string $description = null)
-    {
-        //
-    }
+    public function __construct(
+        public string $name,
+        public ?string $description = null,
+        public ?UploadedFile $logo = null,
+    ) {}
 
     public static function fromArray(array $data): static
     {
         return new self(
             name: $data['name'],
-            description: $data['description'] ?? null
+            description: $data['description'] ?? null,
+            logo: $data['logo'] ?? null,
         );
     }
 }

@@ -2,48 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Dtos\Admin\Seller\CreateSellerDTO;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\SellerRequest;
+use App\Services\Admin\SellerService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
+use Illuminate\View\View;
 
 class SellerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(private SellerService $sellerService) {}
+
     public function index()
     {
-        return view('app.admin.sellers.index', [
-            'sellers' => [
-                (object) [
-                    'id' => 1,
-                    'name' => 'Seller 1',
-                    'stores' => ['Store A', 'Store B'],
-                    'created_at' => Carbon::parse('2024-01-01'),
-                    'products_count' => 10,
-                ],
-                (object) [
-                    'id' => 2,
-                    'name' => 'Seller 2',
-                    'stores' => ['Store C'],
-                    'created_at' => Carbon::parse('2024-02-01'),
-                    'products_count' => 5,
-                ],
-                (object) [
-                    'id' => 3,
-                    'name' => 'Seller 3',
-                    'stores' => ['Store D'],
-                    'created_at' => Carbon::parse('2024-03-01'),
-                    'products_count' => 8,
-                ],
-            ],
-        ]);
+        $sellers = $this->sellerService->getAll();
+
+        return view('app.admin.sellers.index', compact('sellers'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         return view('app.admin.sellers.create');
     }
@@ -51,9 +31,15 @@ class SellerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SellerRequest $request)
     {
-        //
+        try {
+            $seller = $this->sellerService->create(CreateSellerDTO::fromArray($request->validated()));
+
+            return redirect()->route('admin.sellers')->with('success', 'Seller created successfully.');
+        } catch (\Exception  $e) {
+            return back()->withErrors(['error' => 'Failed to create seller: '.$e->getMessage()]);
+        }
     }
 
     /**

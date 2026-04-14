@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Seller;
+use App\Enums\RoleName;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,10 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stores', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Shop name
-            $table->foreignIdFor(Seller::class)->constrained()->cascadeOnDelete();
+            $table->enum('name', RoleName::values())->unique();
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stores');
+        Schema::dropIfExists('roles');
     }
 };
