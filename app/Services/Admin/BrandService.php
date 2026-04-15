@@ -34,21 +34,10 @@ class BrandService
     public function update(Brand $brand, CreateBrandDTO $data): Brand
     {
         $old_logo_path = $brand->logo_path;
-        $logo_path = $old_logo_path;
+        $logo_path = null;
 
         if ($data->logo !== null) {
             $logo_path = $this->s3FileUploadService->uploadFile($data->logo, 'brands/logos');
-
-            // Delete old logo if it exists
-            if ($old_logo_path) {
-                // Attempt to delete the old logo, but don't fail the update if it fails
-                try {
-                    $this->s3FileUploadService->deleteFile($old_logo_path);
-                } catch (\Exception $e) {
-                    // Log the error but don't fail the update
-                    \Log::error('Failed to delete old logo from S3: '.$e->getMessage());
-                }
-            }
         }
 
         $brand->update([
@@ -56,6 +45,17 @@ class BrandService
             'description' => $data->description,
             'logo_path' => $logo_path,
         ]);
+
+        // Delete old logo if it exists
+        if ($old_logo_path && $logo_path) {
+            // Attempt to delete the old logo, but don't fail the update if it fails
+            try {
+                $this->s3FileUploadService->deleteFile($old_logo_path);
+            } catch (\Exception $e) {
+                // Log the error but don't fail the update
+                \Log::error('Failed to delete old logo from S3: '.$e->getMessage());
+            }
+        }
 
         return $brand;
     }

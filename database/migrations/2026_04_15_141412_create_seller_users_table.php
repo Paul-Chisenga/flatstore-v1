@@ -1,30 +1,29 @@
 <?php
 
+use App\Enums\SellerRole;
 use App\Models\Seller;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('stores', function (Blueprint $table) {
+        Schema::create('seller_users', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Shop name
             $table->foreignIdFor(Seller::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->enum('role', SellerRole::values())->default(SellerRole::Owner->value);
             $table->timestamps();
+
+            $table->unique(['seller_id', 'user_id']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('stores');
+        Schema::dropIfExists('seller_users');
     }
 };

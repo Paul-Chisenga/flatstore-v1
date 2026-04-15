@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Enums\SocialProvider;
+use App\Enums\UserRole;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -50,7 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'email',
         'password',
-        'role_id',
+        'role',
         'email_verified_at',
         'provider_id',
         'provider',
@@ -76,12 +78,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => UserRole::class,
         ];
     }
 
-    public function role(): HasOne
+    public function sellers(): BelongsToMany
     {
-        return $this->hasOne(Role::class);
+        return $this->belongsToMany(Seller::class, 'seller_users')
+            ->withPivot('role')
+            ->withTimestamps()
+            ->using(SellerUser::class);
     }
 
     public function profile(): HasOne

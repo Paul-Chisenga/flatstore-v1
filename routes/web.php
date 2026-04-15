@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SellerController;
+use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificatonController;
 use App\Http\Controllers\Auth\PasswordResetController;
@@ -138,6 +139,44 @@ Route::prefix('admin')
             ->name('admin.sellers.create');
         Route::post('/sellers', [SellerController::class, 'store'])
             ->name('admin.sellers.store');
+        Route::get('/sellers/{id}', [SellerController::class, 'show'])
+            ->name('admin.sellers.show');
+        Route::get('/sellers/{id}/edit', [SellerController::class, 'edit'])
+            ->name('admin.sellers.edit');
+        Route::put('/sellers/{id}', [SellerController::class, 'update'])
+            ->name('admin.sellers.update');
+        Route::delete('/sellers/{id}', [SellerController::class, 'destroy'])
+            ->name('admin.sellers.destroy');
+        // Stores
+        Route::get('/stores', [StoreController::class, 'index'])
+            ->name('admin.stores');
+        Route::get('/stores/create', [StoreController::class, 'create'])
+            ->name('admin.stores.create');
+        Route::post('/stores', [StoreController::class, 'store'])
+            ->name('admin.stores.store');
+        Route::get('/stores/{store}', [StoreController::class, 'show'])
+            ->name('admin.stores.show');
+        Route::get('/stores/{store}/edit', [StoreController::class, 'edit'])
+            ->name('admin.stores.edit');
+        Route::put('/stores/{store}', [StoreController::class, 'update'])
+            ->name('admin.stores.update');
+        Route::delete('/stores/{store}', [StoreController::class, 'destroy'])
+            ->name('admin.stores.destroy');
+        // Products
+        Route::get('/products', [\App\Http\Controllers\Admin\ProductController::class, 'index'])
+            ->name('admin.products');
+        Route::get('/products/create', [\App\Http\Controllers\Admin\ProductController::class, 'create'])
+            ->name('admin.products.create');
+        Route::post('/products', [\App\Http\Controllers\Admin\ProductController::class, 'store'])
+            ->name('admin.products.store');
+        Route::get('/products/{product}', [\App\Http\Controllers\Admin\ProductController::class, 'show'])
+            ->name('admin.products.show');
+        Route::get('/products/{product}/edit', [\App\Http\Controllers\Admin\ProductController::class, 'edit'])
+            ->name('admin.products.edit');
+        Route::put('/products/{product}', [\App\Http\Controllers\Admin\ProductController::class, 'update'])
+            ->name('admin.products.update');
+        Route::delete('/products/{product}', [\App\Http\Controllers\Admin\ProductController::class, 'destroy'])
+            ->name('admin.products.destroy');
     });
 
 // Seller routes (can be expanded with more specific seller functionalities)

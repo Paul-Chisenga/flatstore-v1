@@ -22,13 +22,19 @@ class SellerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'store_type' => ['required', 'string', 'in:individual,store'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8'],
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'phone' => ['nullable', 'string', 'max:20'],
-            'birth_date' => ['nullable', 'date'],
+            'business_name' => 'required|string|max:255',
+            'business_email' => 'required|email|unique:sellers,business_email',
+            'business_type' => 'required|string|max:255',
+            'business_phone' => 'nullable|string|max:20',
+            'logo' => 'nullable|image|max:2048',
+            'seller_role' => 'required|in:owner,manager,staff',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8',
+            'first_name' => 'nullable|string|max:255',
+            'last_name' => 'nullable|string|max:255',
+            'contact_phone' => 'nullable|string|max:20',
+            'contact_email' => 'nullable|email|max:255',
+            'birth_date' => 'nullable|date',
         ];
     }
 }

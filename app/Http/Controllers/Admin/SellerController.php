@@ -34,7 +34,7 @@ class SellerController extends Controller
     public function store(SellerRequest $request)
     {
         try {
-            $seller = $this->sellerService->create(CreateSellerDTO::fromArray($request->validated()));
+            $this->sellerService->create(CreateSellerDTO::fromArray($request->validated()));
 
             return redirect()->route('admin.sellers')->with('success', 'Seller created successfully.');
         } catch (\Exception  $e) {
@@ -47,7 +47,9 @@ class SellerController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $seller = $this->sellerService->findById($id);
+
+        return view('app.admin.sellers.show', compact('seller'));
     }
 
     /**

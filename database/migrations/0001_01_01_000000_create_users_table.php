@@ -1,7 +1,7 @@
 <?php
 
 use App\Enums\SocialProvider;
-use App\Models\Role;
+use App\Enums\UserRole;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreignIdFor(Role::class)->constrained()->cascadeOnDelete();
+            $table->enum('role', UserRole::values())->default(UserRole::Buyer->value);
             $table->rememberToken();
 
             // Social login fields

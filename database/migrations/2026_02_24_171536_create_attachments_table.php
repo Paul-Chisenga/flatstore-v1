@@ -17,8 +17,10 @@ return new class extends Migration
             $table->string('file_type');
             $table->bigInteger('file_size');
             $table->string('file_url');
-            $table->unsignedBigInteger('attachable_id');
-            $table->string('attachable_type');
+
+            // Polymorphic relation fields
+            $table->morphs('attachable');
+
             $table->timestamps();
         });
     }

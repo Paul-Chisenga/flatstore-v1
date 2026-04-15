@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\RoleName;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,9 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->enum('name', RoleName::values())->unique();
+            $table->string('country');
+            $table->string('state');
+            $table->string('city');
+            $table->string('street');
+            $table->string('postal_code')->nullable();
+
+            // Polymorphic relation fields
+            $table->morphs('addressable');
+
             $table->timestamps();
         });
     }
@@ -24,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('addresses');
     }
 };
