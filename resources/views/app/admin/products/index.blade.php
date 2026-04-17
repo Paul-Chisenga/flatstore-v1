@@ -4,7 +4,8 @@
             Create Product
         </x-ui.button>
     </x-admin.page-header>
-    @if (count($products) === 0)
+
+    @if ($products->count() === 0)
         <x-ui.empty.empty-state class="mt-8">
             <x-ui.empty.empty-header>
                 No products found
@@ -17,10 +18,14 @@
             </x-ui.button>
         </x-ui.empty.empty-state>
     @else
-        <x-ui.item.item-group class="mt-8">
+        <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             @foreach ($products as $product)
-                <x-cards.seller.product :product="$product" />
+                <x-cards.admin.product :product="$product" />
             @endforeach
-        </x-ui.item.item-group>
+        </div>
+
+        <div class="mt-6">
+            {{ $products->links() }}
+        </div>
     @endif
 </x-admin.root>

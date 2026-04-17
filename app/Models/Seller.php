@@ -19,8 +19,8 @@ class Seller extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'seller_users')
-            ->withPivot('role')
+        return $this->belongsToMany(User::class)
+            ->withPivot('role', 'store_id')
             ->withTimestamps()
             ->using(SellerUser::class);
     }

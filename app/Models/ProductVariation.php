@@ -17,7 +17,6 @@ class ProductVariation extends Model
         'sku',
         'name',
         'price',
-        'stock',
         'weight',
         'width',
         'height',
@@ -36,6 +35,18 @@ class ProductVariation extends Model
             ProductAttributeValue::class,
             // 'product_variation_attribute_values'
         )->withTimestamps();
+    }
+
+    public function stores(): BelongsToMany
+    {
+        return $this->belongsToMany(Store::class, 'store_variation_stocks')
+            ->withPivot('stock', 'is_active')
+            ->withTimestamps();
+    }
+
+    public function stocks(): HasMany
+    {
+        return $this->hasMany(StoreVariationStock::class);
     }
 
     public function medias(): HasMany

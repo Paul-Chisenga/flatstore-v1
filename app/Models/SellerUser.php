@@ -10,7 +10,10 @@ class SellerUser extends Pivot
 {
     protected $table = 'seller_users';
 
-    protected $casts = ['role' => SellerRole::class];
+    protected $casts = [
+        'role' => SellerRole::class,
+        'store_id' => 'integer',
+    ];
 
     public function seller(): BelongsTo
     {
@@ -20,5 +23,10 @@ class SellerUser extends Pivot
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function store(): BelongsTo
+    {
+        return $this->belongsTo(Store::class);
     }
 }

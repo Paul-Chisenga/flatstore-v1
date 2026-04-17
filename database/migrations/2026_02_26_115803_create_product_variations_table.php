@@ -17,9 +17,8 @@ return new class extends Migration
             $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
 
             $table->string('sku')->unique();
-            $table->string('name')->default('default'); // e.g., "Black - Large"
+            $table->string('name')->nullable();
             $table->decimal('price', 10, 2);
-            $table->integer('stock')->default(0);
 
             // Optional attributes
             $table->decimal('weight', 8, 2)->nullable();

@@ -16,7 +16,9 @@ class OrderItem extends Model
         'quantity',
         'unit_price',
         'tax_amount',
+        'shipping_cost',
         'discount_value',
+        'fulfilling_store_id',
     ];
 
     public function productVariation(): BelongsTo
@@ -32,6 +34,11 @@ class OrderItem extends Model
     public function subOrder(): BelongsTo
     {
         return $this->belongsTo(SubOrder::class);
+    }
+
+    public function fulfillingStore(): BelongsTo
+    {
+        return $this->belongsTo(Store::class, 'fulfilling_store_id');
     }
 
     public function shipmentItems(): HasMany

@@ -1,9 +1,9 @@
 <?php
 
+use App\Enums\ProductStatus;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Seller;
-use App\Models\Store;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,12 +19,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->json('seller_shipping_method_ids')->nullable();
+            $table->enum('status', ProductStatus::values())->default(ProductStatus::Draft->value);
+            // $table->json('seller_shipping_method_ids')->nullable();
 
-            $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Brand::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Brand::class)->nullable()->constrained()->nullOnDelete();
             $table->foreignIdFor(Seller::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Store::class)->nullable()->constrained()->cascadeOnDelete();
 
             $table->timestamps();
         });

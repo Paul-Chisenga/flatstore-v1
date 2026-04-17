@@ -9,5 +9,5 @@ enum SellerType: string
     use HasEnumValues;
 
     case Individual = 'individual';
-    case Store = 'store';
+    case Business = 'business';
 }

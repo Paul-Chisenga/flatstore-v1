@@ -84,8 +84,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function sellers(): BelongsToMany
     {
-        return $this->belongsToMany(Seller::class, 'seller_users')
-            ->withPivot('role')
+        return $this->belongsToMany(Seller::class)
+            ->withPivot('role', 'store_id')
             ->withTimestamps()
             ->using(SellerUser::class);
     }

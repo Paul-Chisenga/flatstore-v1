@@ -25,6 +25,16 @@ class CreateSellerDTO implements Dto
         public ?string $contact_phone = null,
         public ?string $contact_email = null,
         public ?string $birth_date = null,
+        // primary store fields
+        public string $store_name = '',
+        public ?string $store_email = null,
+        public ?string $store_phone = null,
+        public ?UploadedFile $store_logo = null,
+        public string $country = '',
+        public string $state = '',
+        public string $city = '',
+        public string $street = '',
+        public ?string $postal_code = null,
     ) {}
 
     public static function fromArray(array $data): static
@@ -43,6 +53,15 @@ class CreateSellerDTO implements Dto
             contact_phone: $data['contact_phone'] ?? null,
             contact_email: $data['contact_email'] ?? null,
             birth_date: $data['birth_date'] ?? null,
+            store_name: $data['store_name'],
+            store_email: $data['store_email'] ?? null,
+            store_phone: $data['store_phone'] ?? null,
+            store_logo: $data['store_logo'] ?? null,
+            country: $data['country'],
+            state: $data['state'],
+            city: $data['city'],
+            street: $data['street'],
+            postal_code: $data['postal_code'] ?? null,
         );
     }
 }

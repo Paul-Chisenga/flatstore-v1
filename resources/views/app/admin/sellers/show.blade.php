@@ -7,6 +7,9 @@
         <x-ui.button href="{{ route('admin.stores.create', ['seller_id' => $seller->id]) }}" :intent="App\Enums\Components\Button\Intent::Secondary">
             Add Store
         </x-ui.button>
+        <x-ui.button href="{{ route('admin.products.create', ['seller_id' => $seller->id]) }}" :intent="App\Enums\Components\Button\Intent::Primary">
+            Add Product
+        </x-ui.button>
     </x-admin.page-header>
 
     <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">

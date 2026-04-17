@@ -40,9 +40,9 @@
                                 seller.</x-ui.field.field-description>
                             <x-ui.radio-group.radio-group>
                                 <x-ui.field orientation="horizontal">
-                                    <x-ui.radio-group.radio-group-item id="store" name="business_type"
-                                        value="store" />
-                                    <x-ui.field.field-label for="store">Store</x-ui.field.field-label>
+                                    <x-ui.radio-group.radio-group-item id="business" name="business_type"
+                                        value="business" />
+                                    <x-ui.field.field-label for="business">Business</x-ui.field.field-label>
                                 </x-ui.field>
                                 <x-ui.field orientation="horizontal">
                                     <x-ui.radio-group.radio-group-item id="individual" name="business_type"
@@ -111,64 +111,143 @@
                     </x-ui.card.card-content>
                 </x-ui.card>
                 {{-- Business credentials --}}
-                <x-ui.card>
-                    <x-ui.card.card-header>
-                        <x-ui.card.card-title>
-                            Login Details
-                        </x-ui.card.card-title>
-                        <x-ui.card.card-description>
-                            Login credentials for the business.
-                        </x-ui.card.card-description>
-                    </x-ui.card.card-header>
-                    <x-ui.card.card-content class="space-y-4">
-                        <x-ui.field.field>
-                            <x-ui.field.field-label for="email">Email</x-ui.field.field-label>
-                            <x-ui.input id="email" name="email" type="email" :value="old('email', 'shoprite@example.com')" />
-                            <x-ui.field.field-error :messages="$errors->get('email')" />
-                        </x-ui.field.field>
-                        <x-ui.field.field>
-                            <x-ui.field.field-label for="password">Password</x-ui.field.field-label>
-                            <x-ui.input id="password" name="password" type="password" :value="old('password', 'password123')" />
-                            <x-ui.field.field-error :messages="$errors->get('password')" />
-                        </x-ui.field.field>
-                    </x-ui.card.card-content>
-                </x-ui.card>
+
+                <div class="space-y-4">
+                    <x-ui.card>
+                        <x-ui.card.card-header>
+                            <x-ui.card.card-title>
+                                Login Details
+                            </x-ui.card.card-title>
+                            <x-ui.card.card-description>
+                                Login credentials for the business.
+                            </x-ui.card.card-description>
+                        </x-ui.card.card-header>
+                        <x-ui.card.card-content class="space-y-4">
+                            <x-ui.field.field>
+                                <x-ui.field.field-label for="email">Email</x-ui.field.field-label>
+                                <x-ui.input id="email" name="email" type="email" :value="old('email', 'shoprite@example.com')" />
+                                <x-ui.field.field-error :messages="$errors->get('email')" />
+                            </x-ui.field.field>
+                            <x-ui.field.field>
+                                <x-ui.field.field-label for="password">Password</x-ui.field.field-label>
+                                <x-ui.input id="password" name="password" type="password" :value="old('password', 'password123')" />
+                                <x-ui.field.field-error :messages="$errors->get('password')" />
+                            </x-ui.field.field>
+                        </x-ui.card.card-content>
+                    </x-ui.card>
+                    <x-ui.card>
+                        <x-ui.card.card-header>
+                            <x-ui.card.card-title>
+                                Contact Person Details
+                            </x-ui.card.card-title>
+                            <x-ui.card.card-description>
+                                Additional profile information for the contact person.
+                            </x-ui.card.card-description>
+                        </x-ui.card.card-header>
+                        <x-ui.card.card-content class="space-y-4">
+                            <x-ui.field.field>
+                                <x-ui.field.field-label for="first_name">First Name</x-ui.field.field-label>
+                                <x-ui.input id="first_name" name="first_name" type="text" :value="old('first_name', 'John')" />
+                                <x-ui.field.field-error :messages="$errors->get('first_name')" />
+                            </x-ui.field.field>
+                            <x-ui.field.field>
+                                <x-ui.field.field-label for="last_name">Last Name</x-ui.field.field-label>
+                                <x-ui.input id="last_name" name="last_name" type="text" :value="old('last_name', 'Doe')" />
+                                <x-ui.field.field-error :messages="$errors->get('last_name')" />
+                            </x-ui.field.field>
+                            <x-ui.field.field>
+                                <x-ui.field.field-label for="contact_email">Email</x-ui.field.field-label>
+                                <x-ui.input id="contact_email" name="contact_email" type="email" :value="old('contact_email', 'johndoe@example.com')" />
+                                <x-ui.field.field-error :messages="$errors->get('contact_email')" />
+                            </x-ui.field.field>
+                            <x-ui.field.field>
+                                <x-ui.field.field-label for="contact_phone">Phone
+                                    Number</x-ui.field.field-label>
+                                <x-ui.input id="contact_phone" name="contact_phone" type="tel" :value="old('contact_phone', '+1234567890')" />
+                                <x-ui.field.field-error :messages="$errors->get('contact_phone')" />
+                            </x-ui.field.field>
+                            <x-ui.field.field>
+                                <x-ui.field.field-label for="birth_date">Date of Birth</x-ui.field.field-label>
+                                <x-ui.input id="birth_date" name="birth_date" type="date" :value="old('birth_date')" />
+                                <x-ui.field.field-error :messages="$errors->get('birth_date')" />
+                            </x-ui.field.field>
+                        </x-ui.card.card-content>
+                    </x-ui.card>
+                </div>
                 {{-- Contact person profile --}}
                 <x-ui.card>
                     <x-ui.card.card-header>
                         <x-ui.card.card-title>
-                            Contact Person Details
+                            Primary Store
                         </x-ui.card.card-title>
                         <x-ui.card.card-description>
-                            Additional profile information for the contact person.
+                            You can add more stores later.
                         </x-ui.card.card-description>
                     </x-ui.card.card-header>
                     <x-ui.card.card-content class="space-y-4">
-                        <x-ui.field.field>
-                            <x-ui.field.field-label for="first_name">First Name</x-ui.field.field-label>
-                            <x-ui.input id="first_name" name="first_name" type="text" :value="old('first_name', 'John')" />
-                            <x-ui.field.field-error :messages="$errors->get('first_name')" />
-                        </x-ui.field.field>
-                        <x-ui.field.field>
-                            <x-ui.field.field-label for="last_name">Last Name</x-ui.field.field-label>
-                            <x-ui.input id="last_name" name="last_name" type="text" :value="old('last_name', 'Doe')" />
-                            <x-ui.field.field-error :messages="$errors->get('last_name')" />
-                        </x-ui.field.field>
-                        <x-ui.field.field>
-                            <x-ui.field.field-label for="contact_email">Email</x-ui.field.field-label>
-                            <x-ui.input id="contact_email" name="contact_email" type="email" :value="old('contact_email', 'johndoe@example.com')" />
-                            <x-ui.field.field-error :messages="$errors->get('contact_email')" />
-                        </x-ui.field.field>
-                        <x-ui.field.field>
-                            <x-ui.field.field-label for="contact_phone">Phone Number</x-ui.field.field-label>
-                            <x-ui.input id="contact_phone" name="contact_phone" type="tel" :value="old('contact_phone', '+1234567890')" />
-                            <x-ui.field.field-error :messages="$errors->get('contact_phone')" />
-                        </x-ui.field.field>
-                        {{-- <x-ui.field.field>
-                            <x-ui.field.field-label for="birth_date">Date of Birth</x-ui.field.field-label>
-                            <x-ui.input id="birth_date" name="birth_date" type="date" :value="old('birth_date')" />
-                            <x-ui.field.field-error :messages="$errors->get('birth_date')" />
-                        </x-ui.field.field> --}}
+                        <x-ui.field.field-set>
+                            {{-- Store name --}}
+                            <x-ui.field.field>
+                                <x-ui.field.field-label for="store_name">Store Name</x-ui.field.field-label>
+                                <x-ui.input id="store_name" name="store_name" type="text" :value="old('store_name', 'Shoprite MandaHill')" />
+                                <x-ui.field.field-error :messages="$errors->get('store_name')" />
+                            </x-ui.field.field>
+                            {{-- Store email --}}
+                            <x-ui.field.field>
+                                <x-ui.field.field-label for="store_email">Store Email
+                                    (optional)</x-ui.field.field-label>
+                                <x-ui.input id="store_email" name="store_email" type="email" :value="old('store_email')" />
+                                <x-ui.field.field-error :messages="$errors->get('store_email')" />
+                            </x-ui.field.field>
+                            {{-- Store phone number --}}
+                            <x-ui.field.field>
+                                <x-ui.field.field-label for="store_phone">Store Phone Number
+                                    (optional)</x-ui.field.field-label>
+                                <x-ui.input id="store_phone" name="store_phone" type="tel" :value="old('store_phone')" />
+                                <x-ui.field.field-error :messages="$errors->get('store_phone')" />
+                            </x-ui.field.field>
+                            {{-- Store logo --}}
+                            <x-ui.field.field>
+                                <x-ui.field.field-label for="store_logo">Store Logo (optional)</x-ui.field.field-label>
+                                <x-ui.input id="store_logo" name="store_logo" type="file" />
+                                <x-ui.field.field-error :messages="$errors->get('store_logo')" />
+                            </x-ui.field.field>
+                        </x-ui.field.field-set>
+                        <x-ui.field.field-set>
+                            <x-ui.field.field-legend>Store Location</x-ui.field.field-legend>
+                            <x-ui.field.field-description>
+                                The physical address of the store.
+                            </x-ui.field.field-description>
+                            <x-ui.field.field-group>
+                                <x-ui.field.field>
+                                    <x-ui.field.field-label for="country">Country</x-ui.field.field-label>
+                                    <x-ui.input id="country" name="country" type="text" :value="old('country', 'Zambia')" />
+                                    <x-ui.field.field-error :messages="$errors->get('country')" />
+                                </x-ui.field.field>
+                                <x-ui.field.field>
+                                    <x-ui.field.field-label for="state">State/Province</x-ui.field.field-label>
+                                    <x-ui.input id="state" name="state" type="text" :value="old('state', 'Lusaka')" />
+                                    <x-ui.field.field-error :messages="$errors->get('state')" />
+                                </x-ui.field.field>
+                                <x-ui.field.field>
+                                    <x-ui.field.field-label for="city">City</x-ui.field.field-label>
+                                    <x-ui.input id="city" name="city" type="text" :value="old('city', 'Lusaka')" />
+                                    <x-ui.field.field-error :messages="$errors->get('city')" />
+                                </x-ui.field.field>
+                                <x-ui.field.field>
+                                    <x-ui.field.field-label for="street">Street</x-ui.field.field-label>
+                                    <x-ui.input id="street" name="street" type="text" :value="old('street')" />
+                                    <x-ui.field.field-error :messages="$errors->get('street')" />
+                                </x-ui.field.field>
+                                <x-ui.field.field>
+                                    <x-ui.field.field-label for="postal_code">Postal Code
+                                        (optional)</x-ui.field.field-label>
+                                    <x-ui.input id="postal_code" name="postal_code" type="text"
+                                        :value="old('postal_code')" />
+                                    <x-ui.field.field-error :messages="$errors->get('postal_code')" />
+                                </x-ui.field.field>
+                            </x-ui.field.field-group>
+                        </x-ui.field.field-set>
                     </x-ui.card.card-content>
                 </x-ui.card>
             </x-ui.card.card-content>

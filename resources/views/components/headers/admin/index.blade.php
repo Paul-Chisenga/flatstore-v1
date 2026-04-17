@@ -21,9 +21,9 @@
             <x-headers.admin.nav-link href="{{ route('admin.stores') }}">
                 Stores
             </x-headers.admin.nav-link>
-            {{-- <x-headers.admin.nav-link href="{{ route('admin.products') }}">
+            <x-headers.admin.nav-link href="{{ route('admin.products') }}">
                 Products
-            </x-headers.admin.nav-link> --}}
+            </x-headers.admin.nav-link>
         </nav>
         {{-- Account --}}
         <div class="flex gap-4">

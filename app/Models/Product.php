@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\ProductStatus;
 use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Product extends Model
 {
@@ -19,9 +21,12 @@ class Product extends Model
     protected $fillable = [
         'name',
         'description',
+        'brand_id',
+        'seller_id',
     ];
 
     protected $casts = [
+        'status' => ProductStatus::class,
         'seller_shipping_method_ids' => 'array',
     ];
 
@@ -30,9 +35,9 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    public function category(): BelongsTo
+    public function categories(): BelongsToMany
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class)->withTimestamps();
     }
 
     public function seller(): BelongsTo
@@ -40,14 +45,14 @@ class Product extends Model
         return $this->belongsTo(Seller::class);
     }
 
-    public function store(): BelongsTo
-    {
-        return $this->belongsTo(Store::class);
-    }
-
     public function attributes(): HasMany
     {
         return $this->hasMany(ProductAttribute::class);
+    }
+
+    public function storeVariationStocks(): HasManyThrough
+    {
+        return $this->hasManyThrough(StoreVariationStock::class, ProductVariation::class);
     }
 
     public function variations(): HasMany

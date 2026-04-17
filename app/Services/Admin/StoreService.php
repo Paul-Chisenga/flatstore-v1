@@ -36,8 +36,8 @@ class StoreService
                 $store = $this->store->create([
                     'seller_id' => $data->seller_id,
                     'name' => $data->store_name,
-                    'email' => $data->store_email,
-                    'phone' => $data->store_phone,
+                    'contact_email' => $data->store_email,
+                    'phone_number' => $data->store_phone,
                     'logo_path' => $logo_path,
                 ]);
 
@@ -78,8 +78,8 @@ class StoreService
                 $store->update([
                     'seller_id' => $data->seller_id,
                     'name' => $data->store_name,
-                    'email' => $data->store_email,
-                    'phone' => $data->store_phone,
+                    'contact_email' => $data->store_email,
+                    'phone_number' => $data->store_phone,
                     'logo_path' => $logo_path,
                 ]);
 
@@ -143,8 +143,8 @@ class StoreService
     public function findById(int $id): Store
     {
         return $this->store
-            ->with('seller', 'address', 'products', 'shippingMethods')
-            ->withCount('products')
+            ->with('seller', 'address', 'productVariations.product', 'shippingMethods')
+            ->withCount(['variationStocks as products_count'])
             ->findOrFail($id);
     }
 }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(Order::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(SubOrder::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(ProductVariation::class)->constrained()->cascadeOnDelete();
+            $table->foreignId('fulfilling_store_id')->nullable()->constrained('stores')->nullOnDelete();
             $table->integer('quantity');
             $table->decimal('unit_price', 10, 2);
             $table->decimal('tax_amount', 12, 2)->default(0);
