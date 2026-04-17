@@ -1,25 +1,24 @@
 <?php
 
+use App\Models\ProductAttribute;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('product_attribute_values', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(ProductAttribute::class)->constrained()->cascadeOnDelete();
+            $table->string('value'); // e.g. Black, Red, XL, 128GB
             $table->timestamps();
+
+            $table->unique(['product_attribute_id', 'value']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('product_attribute_values');
