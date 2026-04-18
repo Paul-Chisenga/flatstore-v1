@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Admin;
+namespace App\Services\Seller;
 
 use App\Dtos\Seller\Store\CreateStoreDTO;
 use App\Models\Store;
@@ -14,9 +14,9 @@ class StoreService
         //
     }
 
-    public function getAll()
+    public function getAll(string $seller_id)
     {
-        $stores = $this->store->with('seller')->get();
+        $stores = $this->store->with('seller')->where('seller_id', $seller_id)->get();
 
         return $stores;
     }
@@ -76,7 +76,6 @@ class StoreService
             $res = DB::transaction(function () use ($store, $data, $logo_path) {
 
                 $store->update([
-                    'seller_id' => $data->seller_id,
                     'name' => $data->store_name,
                     'contact_email' => $data->store_email,
                     'phone_number' => $data->store_phone,

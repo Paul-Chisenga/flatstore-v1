@@ -4,10 +4,10 @@
 
 <x-admin.root>
     <x-admin.page-header title="{{ $seller->name }}" description="Manage the seller's details and settings.">
-        <x-ui.button href="{{ route('admin.stores.create', ['seller_id' => $seller->id]) }}" :intent="App\Enums\Components\Button\Intent::Secondary">
+        <x-ui.button href="{{ route('admin.seller.stores.create', ['seller' => $seller]) }}" :intent="App\Enums\Components\Button\Intent::Secondary">
             Add Store
         </x-ui.button>
-        <x-ui.button href="{{ route('admin.products.create', ['seller_id' => $seller->id]) }}" :intent="App\Enums\Components\Button\Intent::Primary">
+        <x-ui.button href="{{ route('admin.seller.products.create', ['seller' => $seller]) }}" :intent="App\Enums\Components\Button\Intent::Primary">
             Add Product
         </x-ui.button>
     </x-admin.page-header>
@@ -54,8 +54,12 @@
                     </div>
                 </dl>
             </x-ui.card.card-content>
-            <x-ui.card.card-footer class="border-t">
+            <x-ui.card.card-footer class="border-t flex items-center justify-between gap-3">
                 <p class="text-sm text-muted-foreground">Joined {{ $seller->created_at->format('F j, Y') }}</p>
+                <x-ui.button href="{{ route('admin.seller.products', ['seller' => $seller]) }}" :intent="App\Enums\Components\Button\Intent::Secondary"
+                    :size="App\Enums\Components\Button\Size::Sm">
+                    View Products
+                </x-ui.button>
             </x-ui.card.card-footer>
         </x-ui.card>
 
@@ -99,6 +103,12 @@
                 <x-ui.card.card-description>
                     {{ $seller->stores->count() }} store(s)
                 </x-ui.card.card-description>
+                <x-ui.card.card-action>
+                    <x-ui.button href="{{ route('admin.seller.stores', ['seller' => $seller]) }}" :intent="App\Enums\Components\Button\Intent::Secondary"
+                        :size="App\Enums\Components\Button\Size::Sm">
+                        View All
+                    </x-ui.button>
+                </x-ui.card.card-action>
             </x-ui.card.card-header>
             <x-ui.card.card-content>
                 @if ($seller->stores->isNotEmpty())

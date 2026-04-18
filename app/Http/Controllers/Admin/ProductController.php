@@ -50,7 +50,7 @@ class ProductController extends Controller
         try {
             $product = $this->productService->create(CreateProductDTO::fromArray($request->validated()));
 
-            return redirect()->route('admin.products.show', $product->id)->with('success', 'Product created successfully. You can now add attributes to the product and other details.');
+            return redirect()->route('admin.seller.products.show', ['seller' => $product->seller_id, 'product' => $product->id])->with('success', 'Product created successfully. You can now add attributes to the product and other details.');
         } catch (\Exception  $e) {
             return back()->withErrors(['error' => 'Failed to create product: '.$e->getMessage()]);
         }
@@ -97,7 +97,7 @@ class ProductController extends Controller
         try {
             $product = $this->productService->update($product, CreateProductDTO::fromArray($request->validated()));
 
-            return redirect()->route('admin.products.show', $product->id)->with('success', 'Product updated successfully.');
+            return redirect()->route('admin.seller.products.show', ['seller' => $product->seller_id, 'product' => $product->id])->with('success', 'Product updated successfully.');
         } catch (\Exception  $e) {
             return back()->withErrors(['error' => 'Failed to update product: '.$e->getMessage()]);
         }
@@ -109,9 +109,11 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         try {
+            $sellerId = $product->seller_id;
+
             $this->productService->delete($product);
 
-            return redirect()->route('admin.products')->with('success', 'Product deleted successfully.');
+            return redirect()->route('admin.seller.products', ['seller' => $sellerId])->with('success', 'Product deleted successfully.');
         } catch (\Exception  $e) {
             return back()->withErrors(['error' => 'Failed to delete product: '.$e->getMessage()]);
         }

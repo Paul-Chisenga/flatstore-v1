@@ -4,7 +4,8 @@
 
 <x-admin.root>
     <x-admin.page-header title="{{ $store->name }}" description="View store details and activity.">
-        <x-ui.button href="{{ route('admin.stores.edit', $store) }}" :intent="App\Enums\Components\Button\Intent::Secondary">
+        <x-ui.button href="{{ route('admin.seller.stores.edit', ['seller' => $store->seller, 'store' => $store]) }}"
+            :intent="App\Enums\Components\Button\Intent::Secondary">
             Edit Store
         </x-ui.button>
     </x-admin.page-header>

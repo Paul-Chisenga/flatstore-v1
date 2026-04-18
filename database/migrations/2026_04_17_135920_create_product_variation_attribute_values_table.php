@@ -10,7 +10,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('product_variation_attribute_value', function (Blueprint $table) {
+        Schema::create('product_variation_attribute_values', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(ProductVariation::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(ProductAttributeValue::class)->constrained()->cascadeOnDelete();

@@ -1,19 +1,18 @@
-@props(['seller_id', 'sellers', 'brands', 'categories', 'product' => null])
+@props(['seller', 'brands', 'categories', 'product' => null])
 
 @php
-    /** @var App\Models\Seller[] $sellers */
     /** @var App\Models\Brand[] $brands */
     /** @var App\Models\Category[] $categories */
-    /** @var int|null $seller_id */
-    /** @var int|null $brand_id */
     /** @var App\Models\Product|null $product */
+    /** @var App\Models\Seller $seller */
 
-    $seller_id ??= $product?->seller_id;
     $brand_id = old('brand_id') ?? $product?->brand_id;
     $selectedCategoryIds = collect(old('category_ids', $product?->categories?->pluck('id')->all() ?? []))
         ->map(static fn($id) => (int) $id)
         ->all();
-    $action = $product ? route('admin.products.update', $product) : route('admin.products.store');
+    $action = $product
+        ? route('admin.seller.products.update', ['seller' => $product->seller, 'product' => $product])
+        : route('admin.seller.products.store', ['seller' => $seller]);
     $method = $product ? 'PUT' : 'POST';
     $title = $product ? 'Edit Product' : 'Create Product';
     $description = $product
@@ -50,25 +49,11 @@
                 <x-ui.field.field-group class="grid grid-cols-2 gap-6">
                     <x-ui.field.field-set>
                         <x-ui.field>
-                            <x-ui.field.field-label for="seller_id">Seller</x-ui.field.field-label>
-                            <x-ui.select id="seller_id" name="seller_id">
-                                <option value="">Select a seller</option>
-                                @foreach ($sellers as $currentSeller)
-                                    <option value="{{ $currentSeller->id }}"
-                                        {{ $seller_id == $currentSeller->id ? 'selected' : '' }}>
-                                        {{ $currentSeller->name }}
-                                    </option>
-                                @endforeach
-                            </x-ui.select>
-                            <x-ui.field.field-error :messages="$errors->get('seller_id')" />
-                        </x-ui.field>
-                        <x-ui.field>
                             <x-ui.field.field-label for="brand_id">Brand</x-ui.field.field-label>
                             <x-ui.select id="brand_id" name="brand_id">
                                 <option value="">Select a brand</option>
                                 @foreach ($brands as $brand)
-                                    <option value="{{ $brand->id }}"
-                                        {{ $brand_id == $brand->id ? 'selected' : '' }}>
+                                    <option value="{{ $brand->id }}" {{ $brand_id == $brand->id ? 'selected' : '' }}>
                                         {{ $brand->name }}
                                     </option>
                                 @endforeach

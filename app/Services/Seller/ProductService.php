@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Admin;
+namespace App\Services\Seller;
 
 use App\Dtos\Admin\Product\CreateProductDTO;
 use App\Models\Product;
@@ -16,10 +16,11 @@ class ProductService
         //
     }
 
-    public function getAll()
+    public function getAll(int $sellerId)
     {
         return $this->product
             ->with(['brand', 'seller', 'categories'])
+            ->where('seller_id', $sellerId)
             ->withCount('variations')
             ->latest()
             ->paginate(12);

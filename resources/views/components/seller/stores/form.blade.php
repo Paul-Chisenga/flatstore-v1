@@ -6,7 +6,9 @@
     /** @var App\Models\Store|null $store */
 
     $seller_id ??= old('seller_id') ?? $store?->seller_id;
-    $action = $store ? route('admin.stores.update', $store) : route('admin.stores.store');
+    $action = $store
+        ? route('admin.seller.stores.update', ['seller' => $store->seller, 'store' => $store])
+        : route('admin.seller.stores.store', ['seller' => $seller_id]);
     $method = $store ? 'PUT' : 'POST';
     $title = $store ? 'Edit Store' : 'Create Store';
     $description = $store ? 'Edit the details of your store.' : 'Fill in the details below to create a new store.';

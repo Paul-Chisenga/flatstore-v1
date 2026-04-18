@@ -27,10 +27,12 @@
         @endif
     </x-ui.card.card-header>
     <x-ui.card.card-footer class="border-t">
-        <x-ui.button href="{{ route('admin.stores.show', $store) }}" :intent="App\Enums\Components\Button\Intent::Secondary" :size="App\Enums\Components\Button\Size::Sm">
+        <x-ui.button href="{{ route('admin.seller.stores.show', ['seller' => $store->seller, 'store' => $store]) }}"
+            :intent="App\Enums\Components\Button\Intent::Secondary" :size="App\Enums\Components\Button\Size::Sm">
             View
         </x-ui.button>
-        <x-ui.button href="{{ route('admin.stores.edit', $store) }}" :size="App\Enums\Components\Button\Size::Sm">
+        <x-ui.button href="{{ route('admin.seller.stores.edit', ['seller' => $store->seller, 'store' => $store]) }}"
+            :size="App\Enums\Components\Button\Size::Sm">
             Edit
         </x-ui.button>
     </x-ui.card.card-footer>

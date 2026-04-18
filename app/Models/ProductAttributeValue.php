@@ -23,7 +23,7 @@ class ProductAttributeValue extends Model
     {
         return $this->belongsToMany(
             ProductVariation::class,
-            // 'product_variation_attribute_values'
+            'product_variation_attribute_values'
         )->withTimestamps();
     }
 }

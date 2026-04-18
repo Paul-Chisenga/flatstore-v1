@@ -38,10 +38,14 @@
     </x-ui.card.card-content>
 
     <x-ui.card.card-footer class="border-t">
-        <x-ui.button href="{{ route('admin.products.show', $product) }}" :intent="App\Enums\Components\Button\Intent::Secondary" :size="App\Enums\Components\Button\Size::Sm">
+        <x-ui.button
+            href="{{ route('admin.seller.products.show', ['seller' => $product->seller, 'product' => $product]) }}"
+            :intent="App\Enums\Components\Button\Intent::Secondary" :size="App\Enums\Components\Button\Size::Sm">
             View
         </x-ui.button>
-        <x-ui.button href="{{ route('admin.products.edit', $product) }}" :size="App\Enums\Components\Button\Size::Sm">
+        <x-ui.button
+            href="{{ route('admin.seller.products.edit', ['seller' => $product->seller, 'product' => $product]) }}"
+            :size="App\Enums\Components\Button\Size::Sm">
             Edit
         </x-ui.button>
     </x-ui.card.card-footer>

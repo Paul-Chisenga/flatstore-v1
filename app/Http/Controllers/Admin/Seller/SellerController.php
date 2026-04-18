@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Seller;
 
 use App\Dtos\Admin\Seller\CreateSellerDTO;
 use App\Http\Controllers\Controller;

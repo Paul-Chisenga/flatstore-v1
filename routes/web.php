@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\SellerController;
-use App\Http\Controllers\Admin\StoreController;
+use App\Http\Controllers\Admin\Seller\ProductAttributeController as ProductAttributeAdminController;
+use App\Http\Controllers\Admin\Seller\ProductController as SellerProductAdminController;
+use App\Http\Controllers\Admin\Seller\ProductVariationController as ProductVariationAdminController;
+use App\Http\Controllers\Admin\Seller\SellerController;
+use App\Http\Controllers\Admin\Seller\StoreController as SellerStoreAdminController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificatonController;
 use App\Http\Controllers\Auth\PasswordResetController;
@@ -133,50 +136,88 @@ Route::prefix('admin')
         Route::post('/categories/{parentCategory}/create-child', [CategoryController::class, 'storeChild'])
             ->name('admin.categories.store-child');
         // Sellers
-        Route::get('/sellers', [SellerController::class, 'index'])
-            ->name('admin.sellers');
-        Route::get('/sellers/create', [SellerController::class, 'create'])
-            ->name('admin.sellers.create');
-        Route::post('/sellers', [SellerController::class, 'store'])
-            ->name('admin.sellers.store');
-        Route::get('/sellers/{id}', [SellerController::class, 'show'])
-            ->name('admin.sellers.show');
-        Route::get('/sellers/{id}/edit', [SellerController::class, 'edit'])
-            ->name('admin.sellers.edit');
-        Route::put('/sellers/{id}', [SellerController::class, 'update'])
-            ->name('admin.sellers.update');
-        Route::delete('/sellers/{id}', [SellerController::class, 'destroy'])
-            ->name('admin.sellers.destroy');
-        // Stores
-        Route::get('/stores', [StoreController::class, 'index'])
-            ->name('admin.stores');
-        Route::get('/stores/create', [StoreController::class, 'create'])
-            ->name('admin.stores.create');
-        Route::post('/stores', [StoreController::class, 'store'])
-            ->name('admin.stores.store');
-        Route::get('/stores/{store}', [StoreController::class, 'show'])
-            ->name('admin.stores.show');
-        Route::get('/stores/{store}/edit', [StoreController::class, 'edit'])
-            ->name('admin.stores.edit');
-        Route::put('/stores/{store}', [StoreController::class, 'update'])
-            ->name('admin.stores.update');
-        Route::delete('/stores/{store}', [StoreController::class, 'destroy'])
-            ->name('admin.stores.destroy');
-        // Products
-        Route::get('/products', [\App\Http\Controllers\Admin\ProductController::class, 'index'])
-            ->name('admin.products');
-        Route::get('/products/create', [\App\Http\Controllers\Admin\ProductController::class, 'create'])
-            ->name('admin.products.create');
-        Route::post('/products', [\App\Http\Controllers\Admin\ProductController::class, 'store'])
-            ->name('admin.products.store');
-        Route::get('/products/{product}', [\App\Http\Controllers\Admin\ProductController::class, 'show'])
-            ->name('admin.products.show');
-        Route::get('/products/{product}/edit', [\App\Http\Controllers\Admin\ProductController::class, 'edit'])
-            ->name('admin.products.edit');
-        Route::put('/products/{product}', [\App\Http\Controllers\Admin\ProductController::class, 'update'])
-            ->name('admin.products.update');
-        Route::delete('/products/{product}', [\App\Http\Controllers\Admin\ProductController::class, 'destroy'])
-            ->name('admin.products.destroy');
+        Route::prefix('/sellers')->group(function () {
+            Route::get('/', [SellerController::class, 'index'])
+                ->name('admin.sellers');
+            Route::get('/create', [SellerController::class, 'create'])
+                ->name('admin.sellers.create');
+            Route::post('/', [SellerController::class, 'store'])
+                ->name('admin.sellers.store');
+            Route::get('/{id}', [SellerController::class, 'show'])
+                ->name('admin.sellers.show');
+            Route::get('/{id}/edit', [SellerController::class, 'edit'])
+                ->name('admin.sellers.edit');
+            Route::put('/{id}', [SellerController::class, 'update'])
+                ->name('admin.sellers.update');
+            Route::delete('/{id}', [SellerController::class, 'destroy'])
+                ->name('admin.sellers.destroy');
+            Route::prefix('/{seller}/stores')->group(function () {
+                Route::get('/', [SellerStoreAdminController::class, 'index'])
+                    ->name('admin.seller.stores');
+                Route::get('/create', [SellerStoreAdminController::class, 'create'])
+                    ->name('admin.seller.stores.create');
+                Route::post('/', [SellerStoreAdminController::class, 'store'])
+                    ->name('admin.seller.stores.store');
+                Route::get('/{store}', [SellerStoreAdminController::class, 'show'])
+                    ->name('admin.seller.stores.show');
+                Route::get('/{store}/edit', [SellerStoreAdminController::class, 'edit'])
+                    ->name('admin.seller.stores.edit');
+                Route::put('/{store}', [SellerStoreAdminController::class, 'update'])
+                    ->name('admin.seller.stores.update');
+                Route::delete('/{store}', [SellerStoreAdminController::class, 'destroy'])
+                    ->name('admin.seller.stores.destroy');
+            });
+            Route::prefix('/{seller}/products')->scopeBindings()->group(function () {
+                Route::get('/', [SellerProductAdminController::class, 'index'])
+                    ->name('admin.seller.products');
+                Route::get('/create', [SellerProductAdminController::class, 'create'])
+                    ->name('admin.seller.products.create');
+                Route::post('/', [SellerProductAdminController::class, 'store'])
+                    ->name('admin.seller.products.store');
+                Route::get('/{product}', [SellerProductAdminController::class, 'show'])
+                    ->name('admin.seller.products.show');
+                Route::get('/{product}/edit', [SellerProductAdminController::class, 'edit'])
+                    ->name('admin.seller.products.edit');
+                Route::put('/{product}', [SellerProductAdminController::class, 'update'])
+                    ->name('admin.seller.products.update');
+                Route::delete('/{product}', [SellerProductAdminController::class, 'destroy'])
+                    ->name('admin.seller.products.destroy');
+                // Attributes
+                Route::prefix('/{product}/attributes')->group(function () {
+                    Route::get('/', [ProductAttributeAdminController::class, 'index'])
+                        ->name('admin.seller.product.attributes');
+                    Route::get('/create', [ProductAttributeAdminController::class, 'create'])
+                        ->name('admin.seller.product.attributes.create');
+                    Route::post('/', [ProductAttributeAdminController::class, 'store'])
+                        ->name('admin.seller.product.attributes.store');
+                    Route::get('/{attribute}', [ProductAttributeAdminController::class, 'show'])
+                        ->name('admin.seller.product.attributes.show');
+                    Route::get('/{attribute}/edit', [ProductAttributeAdminController::class, 'edit'])
+                        ->name('admin.seller.product.attributes.edit');
+                    Route::put('/{attribute}', [ProductAttributeAdminController::class, 'update'])
+                        ->name('admin.seller.product.attributes.update');
+                    Route::delete('/{attribute}', [ProductAttributeAdminController::class, 'destroy'])
+                        ->name('admin.seller.product.attributes.destroy');
+                });
+                // Variations
+                Route::prefix('/{product}/variations')->group(function () {
+                    Route::get('/', [ProductVariationAdminController::class, 'index'])
+                        ->name('admin.seller.product.variations');
+                    Route::get('/create', [ProductVariationAdminController::class, 'create'])
+                        ->name('admin.seller.product.variations.create');
+                    Route::post('/', [ProductVariationAdminController::class, 'store'])
+                        ->name('admin.seller.product.variations.store');
+                    Route::get('/{variation}', [ProductVariationAdminController::class, 'show'])
+                        ->name('admin.seller.product.variations.show');
+                    Route::get('/{variation}/edit', [ProductVariationAdminController::class, 'edit'])
+                        ->name('admin.seller.product.variations.edit');
+                    Route::put('/{variation}', [ProductVariationAdminController::class, 'update'])
+                        ->name('admin.seller.product.variations.update');
+                    Route::delete('/{variation}', [ProductVariationAdminController::class, 'destroy'])
+                        ->name('admin.seller.product.variations.destroy');
+                });
+            });
+        });
     });
 
 // Seller routes (can be expanded with more specific seller functionalities)

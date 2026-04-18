@@ -23,7 +23,6 @@ class StoreRequest extends FormRequest
     {
         return [
             // Store details
-            'seller_id' => ['required', 'exists:sellers,id'],
             'store_name' => ['required', 'string', 'max:255'],
             'store_email' => ['nullable', 'email', 'max:255'],
             'store_phone' => ['nullable', 'string', 'max:20'],

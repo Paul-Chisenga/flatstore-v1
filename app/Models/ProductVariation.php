@@ -14,6 +14,7 @@ class ProductVariation extends Model
     use HasFactory;
 
     protected $fillable = [
+        'product_id',
         'sku',
         'name',
         'price',
@@ -22,6 +23,15 @@ class ProductVariation extends Model
         'height',
         'depth',
         'is_default',
+    ];
+
+    protected $casts = [
+        'price' => 'decimal:2',
+        'weight' => 'decimal:2',
+        'width' => 'decimal:2',
+        'height' => 'decimal:2',
+        'depth' => 'decimal:2',
+        'is_default' => 'boolean',
     ];
 
     public function product(): BelongsTo
@@ -33,7 +43,7 @@ class ProductVariation extends Model
     {
         return $this->belongsToMany(
             ProductAttributeValue::class,
-            // 'product_variation_attribute_values'
+            'product_variation_attribute_values'
         )->withTimestamps();
     }
 

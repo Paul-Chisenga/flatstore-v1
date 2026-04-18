@@ -1,11 +1,12 @@
 <x-admin.root>
-    <x-admin.page-header title="Products" description="Manage your store's products.">
-        <x-ui.button class="ms-3" href="{{ route('admin.products.create') }}">
+    <x-admin.page-header title="{{ 'Products for ' . $seller->name }}"
+        description="Manage {{ $seller->name }}'s products.">
+        <x-ui.button class="ms-3" href="{{ route('admin.seller.products.create', ['seller' => $seller]) }}">
             Create Product
         </x-ui.button>
     </x-admin.page-header>
 
-    @if ($products->count() === 0)
+    @if ($products->isEmpty())
         <x-ui.empty.empty-state class="mt-8">
             <x-ui.empty.empty-header>
                 No products found
@@ -13,7 +14,7 @@
             <p class="text-muted-foreground">
                 Get started by creating a new product.
             </p>
-            <x-ui.button class="mt-4" href="{{ route('admin.products.create') }}">
+            <x-ui.button class="mt-4" href="{{ route('admin.seller.products.create', ['seller' => $seller]) }}">
                 Create Product
             </x-ui.button>
         </x-ui.empty.empty-state>

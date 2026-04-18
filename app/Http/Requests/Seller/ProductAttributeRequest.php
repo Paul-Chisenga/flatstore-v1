@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Seller;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductRequest extends FormRequest
+class ProductAttributeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'brand_id' => ['nullable', 'integer', 'exists:brands,id'],
-            'description' => ['nullable', 'string'],
-            'category_ids' => ['required', 'array', 'min:1'],
-            'category_ids.*' => ['integer', 'exists:categories,id'],
+            'values' => ['required', 'string', 'max:255'], // This should be a comma-separated string of values, e.g., "Red,Green,Blue"
         ];
     }
 }
