@@ -3,14 +3,39 @@
     /** @var \App\Models\Product $product */
     /** @var \App\Models\ProductAttribute $attribute */
 
-    $linkedVariations = $attribute->values
-        ->flatMap(static fn ($value) => $value->variations)
-        ->unique('id')
-        ->values();
+    $linkedVariations = $attribute->values->flatMap(static fn($value) => $value->variations)->unique('id')->values();
 @endphp
 
 <x-admin.root>
-    <x-admin.page-header title="{{ $attribute->name }}" description="View this product attribute and its configured values.">
+    <x-admin.page-header title="{{ $attribute->name }}"
+        description="View this product attribute and its configured values.">
+        <x-slot:breadcrumb>
+            <x-ui.breadcrumb>
+                <x-ui.breadcrumb.list>
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link href="{{ route('admin.dashboard') }}">Dashboard</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link href="{{ route('admin.sellers') }}">Sellers</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link
+                            href="{{ route('admin.sellers.show', $seller) }}">{{ $seller->name }}</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link
+                            href="{{ route('admin.seller.products.show', ['seller' => $seller, 'product' => $product]) }}">{{ $product->name }}</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.page>{{ $attribute->name }}</x-ui.breadcrumb.page>
+                    </x-ui.breadcrumb.item>
+                </x-ui.breadcrumb.list>
+            </x-ui.breadcrumb>
+        </x-slot:breadcrumb>
         <x-ui.button class="ms-3"
             href="{{ route('admin.seller.product.attributes.edit', ['seller' => $seller, 'product' => $product, 'attribute' => $attribute]) }}">
             Edit Attribute
@@ -86,7 +111,8 @@
                                     <x-ui.item.item-description>SKU: {{ $variation->sku }}</x-ui.item.item-description>
                                 </x-ui.item.item-content>
                                 <x-ui.item.item-actions>
-                                    <span class="text-sm font-medium">K{{ number_format((float) $variation->price, 2) }}</span>
+                                    <span
+                                        class="text-sm font-medium">K{{ number_format((float) $variation->price, 2) }}</span>
                                     <x-ui.button
                                         href="{{ route('admin.seller.product.variations.show', ['seller' => $seller, 'product' => $product, 'variation' => $variation]) }}"
                                         :intent="App\Enums\Components\Button\Intent::Info" :size="App\Enums\Components\Button\Size::Sm">

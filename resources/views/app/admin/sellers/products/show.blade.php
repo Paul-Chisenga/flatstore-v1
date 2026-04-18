@@ -4,6 +4,33 @@
 
 <x-admin.root>
     <x-admin.page-header title="{{ $product->name }}" description="View and manage this product.">
+        <x-slot:breadcrumb>
+            <x-ui.breadcrumb>
+                <x-ui.breadcrumb.list>
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link href="{{ route('admin.dashboard') }}">Dashboard</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link href="{{ route('admin.sellers') }}">Sellers</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link
+                            href="{{ route('admin.sellers.show', $product->seller) }}">{{ $product->seller->name }}</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link
+                            href="{{ route('admin.seller.products', ['seller' => $product->seller]) }}">Products</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.page>{{ $product->name }}</x-ui.breadcrumb.page>
+                    </x-ui.breadcrumb.item>
+                </x-ui.breadcrumb.list>
+            </x-ui.breadcrumb>
+        </x-slot:breadcrumb>
         <x-ui.button class="ms-3"
             href="{{ route('admin.seller.products.edit', ['seller' => $product->seller, 'product' => $product]) }}">
             Edit Product

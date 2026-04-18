@@ -1,5 +1,27 @@
 <x-admin.root>
     <x-admin.page-header title="Stores for {{ $seller->name }}" description="Manage stores for this seller.">
+        <x-slot:breadcrumb>
+            <x-ui.breadcrumb>
+                <x-ui.breadcrumb.list>
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link href="{{ route('admin.dashboard') }}">Dashboard</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link href="{{ route('admin.sellers') }}">Sellers</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link
+                            href="{{ route('admin.sellers.show', $seller) }}">{{ $seller->name }}</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.page>Stores</x-ui.breadcrumb.page>
+                    </x-ui.breadcrumb.item>
+                </x-ui.breadcrumb.list>
+            </x-ui.breadcrumb>
+        </x-slot:breadcrumb>
         <x-ui.button class="ms-3" href="{{ route('admin.seller.stores.create', ['seller' => $seller]) }}">
             Create Store
         </x-ui.button>

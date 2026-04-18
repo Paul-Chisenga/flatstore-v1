@@ -1,6 +1,13 @@
+@php
+    /** @var \App\Models\Seller $seller */
+    /** @var \App\Models\Product $product */
+    /** @var \App\Models\ProductVariation $variation */
+
+    $displayName = $variation->name ?: ($variation->attributeValues->pluck('value')->implode(' / ') ?: $variation->sku);
+@endphp
+
 <x-admin.root>
-    <x-admin.page-header title="{{ $attribute->name }}"
-        description="Edit [{{ $attribute->name }}] attribute for the product {{ $product->name }}">
+    <x-admin.page-header title="Add Stock" description="Assign new stock to the selected product variation.">
         <x-slot:breadcrumb>
             <x-ui.breadcrumb>
                 <x-ui.breadcrumb.list>
@@ -23,13 +30,19 @@
                     </x-ui.breadcrumb.item>
                     <x-ui.breadcrumb.separator />
                     <x-ui.breadcrumb.item>
-                        <x-ui.breadcrumb.page>Edit Attribute</x-ui.breadcrumb.page>
+                        <x-ui.breadcrumb.link
+                            href="{{ route('admin.seller.product.variations.show', ['seller' => $seller, 'product' => $product, 'variation' => $variation]) }}">{{ $displayName }}</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.page>Add Stock</x-ui.breadcrumb.page>
                     </x-ui.breadcrumb.item>
                 </x-ui.breadcrumb.list>
             </x-ui.breadcrumb>
         </x-slot:breadcrumb>
     </x-admin.page-header>
-    <x-seller.product-attributes.form
-        action="{{ route('admin.seller.product.attributes.update', ['seller' => $seller, 'product' => $product, 'attribute' => $attribute]) }}"
-        title="Update attribute" :description="'Edit the attribute for the product ' . $product->name" alert_title="Attribute Update Failed" :attribute="$attribute" />
+    <x-seller.stock.form
+        action="{{ route('admin.seller.product.variations.stocks.store', ['seller' => $seller, 'product' => $product, 'variation' => $variation]) }}"
+        title="Create Stock" description="Create a new stock for the product variation '{{ $displayName }}'"
+        alert_title="Stock Creation Failed" :available_stores="$seller->stores" />
 </x-admin.root>

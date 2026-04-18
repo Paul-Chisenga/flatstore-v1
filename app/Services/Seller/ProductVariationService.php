@@ -3,10 +3,15 @@
 namespace App\Services\Seller;
 
 use App\Dtos\Seller\ProductVariation\CreateProductVariationDTO;
+use App\Dtos\Seller\ProductVariation\CreateVariationStockDTO;
 use App\Dtos\Seller\ProductVariation\UpdateProductVariationDTO;
+use App\Dtos\Seller\ProductVariation\UpdateVariationStockDTO;
 use App\Models\Product;
 use App\Models\ProductVariation;
+use App\Models\Store;
+use App\Models\StoreVariationStock;
 use Illuminate\Support\Facades\DB;
+use InvalidArgumentException;
 
 class ProductVariationService
 {
@@ -87,5 +92,44 @@ class ProductVariationService
                 }
             }
         });
+    }
+
+    public function addStock(ProductVariation $variation, CreateVariationStockDTO $data): void
+    {
+        DB::transaction(function () use ($variation, $data) {
+            $variation->loadMissing('product');
+
+            $storeBelongsToSeller = Store::query()
+                ->whereKey($data->store_id)
+                ->where('seller_id', $variation->product->seller_id)
+                ->exists();
+
+            if (! $storeBelongsToSeller) {
+                throw new InvalidArgumentException('Selected store does not belong to this seller.');
+            }
+
+            $variation->stocks()->updateOrCreate(
+                ['store_id' => $data->store_id],
+                [
+                    'stock' => $data->stock,
+                    'is_active' => true,
+                ],
+            );
+        });
+    }
+
+    public function updateStock(StoreVariationStock $variationStock, UpdateVariationStockDTO $data): StoreVariationStock
+    {
+        $variationStock->update([
+            'stock' => $data->stock,
+            'is_active' => $data->is_active,
+        ]);
+
+        return $variationStock->fresh(['store', 'productVariation.product']);
+    }
+
+    public function deleteStock(StoreVariationStock $variationStock): void
+    {
+        $variationStock->delete();
     }
 }

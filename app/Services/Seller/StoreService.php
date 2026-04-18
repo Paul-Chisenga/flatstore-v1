@@ -142,8 +142,25 @@ class StoreService
     public function findById(int $id): Store
     {
         return $this->store
-            ->with('seller', 'address', 'productVariations.product', 'shippingMethods')
-            ->withCount(['variationStocks as products_count'])
+            ->with([
+                'seller',
+                'address',
+                'shippingMethods',
+                'variationStocks' => function ($query) {
+                    $query->with([
+                        'productVariation' => function ($variationQuery) {
+                            $variationQuery->with(['product', 'attributeValues.attribute']);
+                        },
+                    ])->latest();
+                },
+            ])
+            ->withCount([
+                'variationStocks as products_count',
+                'variationStocks as active_variations_count' => function ($query) {
+                    $query->where('is_active', true);
+                },
+            ])
+            ->withSum('variationStocks as total_units_in_stock', 'stock')
             ->findOrFail($id);
     }
 }

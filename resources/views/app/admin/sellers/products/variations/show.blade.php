@@ -8,6 +8,38 @@
 
 <x-admin.root>
     <x-admin.page-header title="{{ $displayName }}" description="View this product variation and its configuration.">
+        <x-slot:breadcrumb>
+            <x-ui.breadcrumb>
+                <x-ui.breadcrumb.list>
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link href="{{ route('admin.dashboard') }}">Dashboard</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link href="{{ route('admin.sellers') }}">Sellers</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link
+                            href="{{ route('admin.sellers.show', $seller) }}">{{ $seller->name }}</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link
+                            href="{{ route('admin.seller.products', ['seller' => $seller]) }}">Products</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link
+                            href="{{ route('admin.seller.products.show', ['seller' => $seller, 'product' => $product]) }}">{{ $product->name }}</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.page>{{ $displayName }}</x-ui.breadcrumb.page>
+                    </x-ui.breadcrumb.item>
+                </x-ui.breadcrumb.list>
+            </x-ui.breadcrumb>
+        </x-slot:breadcrumb>
         <x-ui.button class="ms-3"
             href="{{ route('admin.seller.product.variations.edit', ['seller' => $seller, 'product' => $product, 'variation' => $variation]) }}">
             Edit Variation
@@ -101,6 +133,14 @@
             <x-ui.card.card-header>
                 <x-ui.card.card-title>Store Availability</x-ui.card.card-title>
                 <x-ui.card.card-description>Current stock assignments across stores.</x-ui.card.card-description>
+                <x-ui.card.card-action>
+                    <x-ui.button
+                        href="{{ route('admin.seller.product.variations.stocks.create', ['seller' => $product->seller, 'product' => $product, 'variation' => $variation]) }}"
+                        :intent="App\Enums\Components\Button\Intent::Primary" :size="App\Enums\Components\Button\Size::IconSm">
+                        <span class="sr-only">Add Stock</span>
+                        <ion-icon name="add-outline"></ion-icon>
+                    </x-ui.button>
+                </x-ui.card.card-action>
             </x-ui.card.card-header>
             <x-ui.card.card-content>
                 @if ($variation->stocks->isEmpty())
@@ -115,10 +155,19 @@
                                         Status: {{ $stock->is_active ? 'Active' : 'Inactive' }}
                                     </x-ui.item.item-description>
                                 </x-ui.item.item-content>
-                                <x-ui.item.item-actions>
-                                    <x-ui.badge :intent="$stock->is_active ? App\Enums\Components\Button\Intent::Success : App\Enums\Components\Button\Intent::Muted">
+                                <x-ui.item.item-actions class="flex items-center gap-2">
+                                    <x-ui.badge :intent="$stock->is_active
+                                        ? App\Enums\Components\Button\Intent::Success
+                                        : App\Enums\Components\Button\Intent::Muted">
                                         {{ $stock->stock }} in stock
                                     </x-ui.badge>
+                                    @if ($stock->store)
+                                        <x-ui.button
+                                            href="{{ route('admin.seller.stores.show', ['seller' => $seller, 'store' => $stock->store]) }}"
+                                            :intent="App\Enums\Components\Button\Intent::Secondary" :size="App\Enums\Components\Button\Size::Sm">
+                                            Manage in Store
+                                        </x-ui.button>
+                                    @endif
                                 </x-ui.item.item-actions>
                             </x-ui.item.item>
                         @endforeach

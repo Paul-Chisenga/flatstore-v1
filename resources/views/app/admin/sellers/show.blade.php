@@ -4,6 +4,23 @@
 
 <x-admin.root>
     <x-admin.page-header title="{{ $seller->name }}" description="Manage the seller's details and settings.">
+        <x-slot:breadcrumb>
+            <x-ui.breadcrumb>
+                <x-ui.breadcrumb.list>
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link href="{{ route('admin.dashboard') }}">Dashboard</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.link href="{{ route('admin.sellers') }}">Sellers</x-ui.breadcrumb.link>
+                    </x-ui.breadcrumb.item>
+                    <x-ui.breadcrumb.separator />
+                    <x-ui.breadcrumb.item>
+                        <x-ui.breadcrumb.page>{{ $seller->name }}</x-ui.breadcrumb.page>
+                    </x-ui.breadcrumb.item>
+                </x-ui.breadcrumb.list>
+            </x-ui.breadcrumb>
+        </x-slot:breadcrumb>
         <x-ui.button href="{{ route('admin.seller.stores.create', ['seller' => $seller]) }}" :intent="App\Enums\Components\Button\Intent::Secondary">
             Add Store
         </x-ui.button>

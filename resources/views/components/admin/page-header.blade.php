@@ -3,6 +3,11 @@
 <x-ui.card data-slot="page-header"
     {{ $attributes->merge(['class' => twMerge('mb-4 border-none bg-transparent shadow-none ring-0', $class)]) }}>
     <x-ui.card.card-header>
+        @if (isset($breadcrumb) && $breadcrumb->isNotEmpty())
+            <div class="mb-2">
+                {{ $breadcrumb }}
+            </div>
+        @endif
         @if ($title)
             <x-ui.card.card-title class="text-2xl font-semibold tracking-tight md:text-2xl">
                 {{ $title }}

@@ -166,6 +166,10 @@ Route::prefix('admin')
                     ->name('admin.seller.stores.update');
                 Route::delete('/{store}', [SellerStoreAdminController::class, 'destroy'])
                     ->name('admin.seller.stores.destroy');
+                Route::put('/{store}/stocks/{variationStock}', [SellerStoreAdminController::class, 'updateStock'])
+                    ->name('admin.seller.stores.stocks.update');
+                Route::delete('/{store}/stocks/{variationStock}', [SellerStoreAdminController::class, 'destroyStock'])
+                    ->name('admin.seller.stores.stocks.destroy');
             });
             Route::prefix('/{seller}/products')->scopeBindings()->group(function () {
                 Route::get('/', [SellerProductAdminController::class, 'index'])
@@ -215,6 +219,13 @@ Route::prefix('admin')
                         ->name('admin.seller.product.variations.update');
                     Route::delete('/{variation}', [ProductVariationAdminController::class, 'destroy'])
                         ->name('admin.seller.product.variations.destroy');
+                    // Variation Stocks
+                    Route::prefix('/{variation}/stocks')->group(function () {
+                        Route::get('/create', [ProductVariationAdminController::class, 'createStock'])
+                            ->name('admin.seller.product.variations.stocks.create');
+                        Route::post('/', [ProductVariationAdminController::class, 'storeStock'])
+                            ->name('admin.seller.product.variations.stocks.store');
+                    });
                 });
             });
         });
