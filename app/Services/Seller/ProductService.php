@@ -3,7 +3,9 @@
 namespace App\Services\Seller;
 
 use App\Dtos\Admin\Product\CreateProductDTO;
+use App\Dtos\Admin\Product\UpdateProductDTO;
 use App\Models\Product;
+use App\Services\S3Service;
 use Illuminate\Support\Facades\DB;
 
 class ProductService
@@ -11,7 +13,7 @@ class ProductService
     /**
      * Create a new class instance.
      */
-    public function __construct(private Product $product)
+    public function __construct(private Product $product, private S3Service $s3Service)
     {
         //
     }
@@ -28,18 +30,27 @@ class ProductService
 
     public function create(CreateProductDTO $data)
     {
-        return DB::transaction(function () use ($data) {
-            $product = $this->product->create([
-                'name' => $data->name,
-                'description' => $data->description,
-                'brand_id' => $data->brand_id,
-                'seller_id' => $data->seller_id,
-            ]);
+        $thumbnail_path = $this->s3Service->uploadFile($data->thumbnail, 'products/thumbnails');
+        try {
+            return DB::transaction(function () use ($data, $thumbnail_path) {
+                $product = $this->product->create([
+                    'name' => $data->name,
+                    'description' => $data->description,
+                    'brand_id' => $data->brand_id,
+                    'seller_id' => $data->seller_id,
+                    'thumbnail_path' => $thumbnail_path,
+                ]);
 
-            $product->categories()->sync($data->category_ids ?? []);
+                $product->categories()->sync($data->category_ids ?? []);
 
-            return $product->load(['brand', 'seller', 'categories']);
-        });
+                return $product->load(['brand', 'seller', 'categories']);
+            });
+        } catch (\Exception $e) {
+            if ($thumbnail_path) {
+                $this->s3Service->deleteFile($thumbnail_path);
+            }
+            throw $e;
+        }
     }
 
     public function findById(int $id): ?Product
@@ -51,25 +62,47 @@ class ProductService
                 'categories',
                 'attributes.values',
                 'variations.attributeValues.attribute',
+                'medias.productVariation.attributeValues.attribute',
             ])
-            ->withCount('variations')
+            ->withCount(['variations', 'medias'])
             ->find($id);
     }
 
-    public function update(Product $product, CreateProductDTO $data)
+    public function update(Product $product, UpdateProductDTO $data)
     {
-        return DB::transaction(function () use ($product, $data) {
-            $product->update([
-                'name' => $data->name,
-                'description' => $data->description,
-                'brand_id' => $data->brand_id,
-                'seller_id' => $data->seller_id,
-            ]);
+        $thumbnail_path = null;
+        if ($data->thumbnail) {
+            $thumbnail_path = $this->s3Service->uploadFile($data->thumbnail, 'products/thumbnails');
+        }
+        try {
+            return DB::transaction(function () use ($product, $data, $thumbnail_path) {
+                $product->update([
+                    'name' => $data->name,
+                    'description' => $data->description,
+                    'brand_id' => $data->brand_id,
+                    'seller_id' => $data->seller_id,
+                    'thumbnail_path' => $thumbnail_path ?? $product->thumbnail_path,
+                ]);
 
-            $product->categories()->sync($data->category_ids ?? []);
+                $product->categories()->sync($data->category_ids ?? []);
 
-            return $product->load(['brand', 'seller', 'categories']);
-        });
+                if ($thumbnail_path && $product->thumbnail_path) {
+                    try {
+                        $this->s3Service->deleteFile($product->thumbnail_path);
+                    } catch (\Exception $e) {
+                        // Log the error but don't fail the entire transaction
+                        \Log::error('Failed to delete old thumbnail: '.$e->getMessage());
+                    }
+                }
+
+                return $product->load(['brand', 'seller', 'categories']);
+            });
+        } catch (\Exception $e) {
+            if ($thumbnail_path) {
+                $this->s3Service->deleteFile($thumbnail_path);
+            }
+            throw $e;
+        }
     }
 
     public function delete(Product $product): void

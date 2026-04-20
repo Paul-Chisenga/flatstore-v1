@@ -23,7 +23,8 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'firstName' => ['required', 'string', 'max:255'],
+            'lastName' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
         ];
@@ -32,9 +33,12 @@ class RegisterRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Name is required.',
-            'name.string' => 'Name is invalid.',
-            'name.max' => 'Name must not exceed 255 characters.',
+            'firstName.required' => 'First name is required.',
+            'firstName.string' => 'First name is invalid.',
+            'firstName.max' => 'First name must not exceed 255 characters.',
+            'lastName.required' => 'Last name is required.',
+            'lastName.string' => 'Last name is invalid.',
+            'lastName.max' => 'Last name must not exceed 255 characters.',
             'email.required' => 'Email is required.',
             'email.string' => 'Email is invalid.',
             'email.email' => 'Email must be a valid email address.',

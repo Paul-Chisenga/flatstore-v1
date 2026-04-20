@@ -37,6 +37,7 @@
         </x-ui.button>
     </x-admin.page-header>
 
+
     <div class="mt-8 grid gap-6 lg:grid-cols-3">
         <x-ui.card>
             <x-ui.card.card-header>
@@ -44,6 +45,17 @@
                 <x-ui.card.card-description>Catalogue information and publishing state.</x-ui.card.card-description>
             </x-ui.card.card-header>
             <x-ui.card.card-content class="space-y-4 text-sm">
+                <div>
+                    @if ($product->thumbnail_path)
+                        <img src="{{ route('download', ['file_path' => $product->thumbnail_path]) }}"
+                            alt="{{ $product->name }} thumbnail" class="h-32 w-32 object-cover rounded border mb-4" />
+                    @else
+                        <div class="h-32 w-32 flex items-center justify-center bg-muted rounded border mb-4">
+                            <span
+                                class="text-2xl font-bold text-muted-foreground">{{ Str::upper(Str::substr($product->name, 0, 2)) }}</span>
+                        </div>
+                    @endif
+                </div>
                 <div>
                     <p class="text-muted-foreground">Seller</p>
                     <p class="font-medium">{{ $product->seller->name }}</p>
@@ -85,6 +97,76 @@
                 <p class="text-sm text-muted-foreground">
                     {{ $product->description ?: 'No description provided yet.' }}
                 </p>
+            </x-ui.card.card-content>
+        </x-ui.card>
+
+        <x-ui.card class="lg:col-span-3">
+            <x-ui.card.card-header>
+                <x-ui.card.card-title>Product Media</x-ui.card.card-title>
+                <x-ui.card.card-description>{{ $product->medias_count ?? $product->medias->count() }} media item(s)
+                    available.</x-ui.card.card-description>
+                <x-ui.card.card-action>
+                    <x-ui.button
+                        href="{{ route('admin.seller.product.medias.create', ['seller' => $product->seller, 'product' => $product]) }}"
+                        :intent="App\Enums\Components\Button\Intent::Primary" :size="App\Enums\Components\Button\Size::Sm">
+                        Manage Media
+                    </x-ui.button>
+                </x-ui.card.card-action>
+            </x-ui.card.card-header>
+            <x-ui.card.card-content>
+                @if ($product->medias->isEmpty())
+                    <p class="text-sm text-muted-foreground">No media has been uploaded for this product yet.</p>
+                @else
+                    <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                        @foreach ($product->medias as $media)
+                            @php
+                                $variationLabel =
+                                    $media->productVariation?->name ?:
+                                    ($media->productVariation?->attributeValues?->pluck('value')->implode(' / ') ?:
+                                    $media->productVariation?->sku);
+                            @endphp
+                            <x-ui.card class="overflow-hidden pt-0">
+                                @if ($media->type !== App\Enums\ProductMediaType::VIDEO->value)
+                                    <img src="{{ route('download', ['file_path' => $media->file_path]) }}"
+                                        alt="{{ $product->name }} media" class="h-44 w-full object-cover" />
+                                @else
+                                    <div
+                                        class="flex h-44 items-center justify-center bg-muted text-sm text-muted-foreground">
+                                        Video media
+                                    </div>
+                                @endif
+                                <x-ui.card.card-header>
+                                    <x-ui.card.card-title
+                                        class="text-base">{{ ucfirst($media->type) }}</x-ui.card.card-title>
+                                    <x-ui.card.card-description>
+                                        {{ $variationLabel ? 'Variation: ' . $variationLabel : 'Applies to the whole product' }}
+                                    </x-ui.card.card-description>
+                                    <x-ui.card.card-action>
+                                        @if ($media->is_primary)
+                                            <x-ui.badge :intent="App\Enums\Components\Button\Intent::Success">Primary</x-ui.badge>
+                                        @endif
+                                    </x-ui.card.card-action>
+                                </x-ui.card.card-header>
+                                <x-ui.card.card-footer class="flex items-center justify-between gap-2 border-t">
+                                    <x-ui.button
+                                        href="{{ route('admin.seller.product.medias.edit', ['seller' => $product->seller, 'product' => $product, 'media' => $media]) }}"
+                                        :intent="App\Enums\Components\Button\Intent::Secondary" :size="App\Enums\Components\Button\Size::Sm">
+                                        Edit
+                                    </x-ui.button>
+                                    <form
+                                        action="{{ route('admin.seller.product.medias.destroy', ['seller' => $product->seller, 'product' => $product, 'media' => $media]) }}"
+                                        method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <x-ui.button type="submit" :intent="App\Enums\Components\Button\Intent::Danger" :size="App\Enums\Components\Button\Size::Sm">
+                                            Delete
+                                        </x-ui.button>
+                                    </form>
+                                </x-ui.card.card-footer>
+                            </x-ui.card>
+                        @endforeach
+                    </div>
+                @endif
             </x-ui.card.card-content>
         </x-ui.card>
 

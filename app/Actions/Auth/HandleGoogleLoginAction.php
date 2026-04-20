@@ -19,8 +19,10 @@ class HandleGoogleLoginAction
         // the driver to be stateless for API and non-stateless for web, so we
         // can just call user() or stateless()->user() based on the $api flag
         $user = $api ? $socialite->user() : $socialite->stateless()->user();
+
         $createUserDTO = new CreateUserDTO(
-            name: $user->name,
+            first_name: $user->user['given_name'] ?? '',
+            last_name: $user->user['family_name'] ?? '',
             email: $user->email,
             provider_id: $user->id,
             provider: SocialProvider::GOOGLE->value,

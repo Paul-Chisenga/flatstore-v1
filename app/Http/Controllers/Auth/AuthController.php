@@ -58,8 +58,6 @@ class AuthController extends Controller
     // Google social login methods
     public function googleRedirectWeb(): RedirectResponse
     {
-        \Log::info('Initiating Google social login redirect for web.');
-
         return $this->resolveSocialiteTargetAction
             ->execute()
             ->redirect();

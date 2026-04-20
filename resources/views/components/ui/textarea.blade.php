@@ -1,3 +1,10 @@
-@props(['class' => $class ?? ''])
+@props([
+    'class' => $class ?? '',
+    'value' => null,
+])
 
-<textarea data-slot="textarea" {{ $attributes->merge(['class' => $class]) }}></textarea>
+@php
+    $content = trim((string) $slot) !== '' ? $slot : $value;
+@endphp
+
+<textarea data-slot="textarea" {{ $attributes->except('value')->merge(['class' => $class]) }}>{{ $content }}</textarea>

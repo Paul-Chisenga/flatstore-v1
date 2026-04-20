@@ -10,6 +10,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property array{ionicon_name: string}|null $metadata
+ * @property string $name
+ * @property string|null $description
+ *
+ * @mixin \Eloquent
+ */
 class Category extends Model
 {
     /** @use HasFactory<\Database\Factories\CategoryFactory> */

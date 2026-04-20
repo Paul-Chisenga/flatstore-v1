@@ -23,6 +23,7 @@ class Product extends Model
         'description',
         'brand_id',
         'seller_id',
+        'thumbnail_path',
     ];
 
     protected $casts = [
@@ -65,14 +66,19 @@ class Product extends Model
         return $this->hasMany(ProductMedia::class);
     }
 
-    public function discounts(): HasMany
+    public function media(): HasMany
     {
-        return $this->hasMany(Discount::class);
+        return $this->medias();
     }
 
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function discounts(): HasMany
+    {
+        return $this->hasMany(Discount::class);
     }
 
     public function reviews(): HasMany

@@ -6,9 +6,10 @@
     'alert_description' => null,
     'submit_label' => null,
     'isEdit' => false,
+    'enctype' => null,
 ])
 
-<form action="{{ $action }}" method="POST">
+<form action="{{ $action }}" method="POST" @if ($enctype) enctype="{{ $enctype }}" @endif>
     @csrf
     @if ($isEdit)
         @method('PUT')

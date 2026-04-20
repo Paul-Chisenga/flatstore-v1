@@ -7,6 +7,7 @@ use App\Enums\UserRole;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -106,5 +107,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function canResetPassword(): bool
     {
         return ! $this->isSocialAccount();
+    }
+
+    public function recentViewedProducts(): HasMany
+    {
+        return $this->hasMany(RecentViewedProduct::class);
+    }
+
+    public function recentSearches(): HasMany
+    {
+        return $this->hasMany(RecentSearch::class);
     }
 }

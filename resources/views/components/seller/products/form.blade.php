@@ -80,17 +80,30 @@
                         <x-ui.field.field-group>
                             <x-ui.field>
                                 <x-ui.field.field-label for="name">Product Name</x-ui.field.field-label>
-                                <x-ui.input id="name" name="name" type="text" :value="old('name', $product?->name ?? '43 Iches Samsung Tv with 4K resolution')"
+                                <x-ui.input id="name" name="name" type="text" :value="old('name', $product?->name ?? 'iPhone 5s')"
                                     placeholder="Eg. Sample Product" />
                                 <x-ui.field.field-error :messages="$errors->get('name')" />
+                            </x-ui.field>
+                            <x-ui.field>
+                                <x-ui.field.field-label for="thumbnail">Thumbnail</x-ui.field.field-label>
+                                @if ($product?->thumbnail_path)
+                                    <div class="mb-2">
+                                        <img src="{{ route('download', ['file_path' => $product->thumbnail_path]) }}"
+                                            alt="Current thumbnail" class="h-24 w-24 object-cover rounded border" />
+                                    </div>
+                                @endif
+                                <x-ui.input id="thumbnail" name="thumbnail" type="file" accept="image/*" />
+                                <x-ui.field.field-error :messages="$errors->get('thumbnail')" />
                             </x-ui.field>
                             <x-ui.field>
                                 <x-ui.field.field-label for="description">Description
                                     (optional)</x-ui.field.field-label>
                                 <x-ui.textarea id="description" name="description"
-                                    placeholder="Eg. Sample Product Description">
-                                    {{ old('description', $product?->description ?? '43 Inches Samsung TV with 4K resolution') }}
-                                </x-ui.textarea>
+                                    placeholder="Eg. Sample Product Description" :value="old(
+                                        'description',
+                                        $product?->description ??
+                                            'The iPhone 5s is a classic smartphone known for its compact design and advanced features during its release. While it\'s an older model, it still provides a reliable user experience.',
+                                    )" />
                                 <x-ui.field.field-error :messages="$errors->get('description')" />
                             </x-ui.field>
                         </x-ui.field.field-group>

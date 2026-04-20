@@ -4,8 +4,25 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificatonController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegistrationController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
+Route::prefix('home')->group(function () {
+    Route::get('/categories', [HomeController::class, 'categories']);
+    Route::get('/featured-products', [HomeController::class, 'featuredProducts']);
+});
+Route::get('/search', [ProductController::class, 'searchProductsApi']);
+
+/** UNVERIFIED PROTECTED ROUTES */
+Route::middleware('auth:sanctum')->group(function () {});
+
+/** VERIFIED PROTECTED ROUTES */
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/home/recent-views', [HomeController::class, 'recentViews']);
+});
+
+/** AUTH */
 // Authentication routes
 Route::post('/login', [AuthController::class, 'loginApi'])
     ->middleware('throttle:login');
@@ -39,3 +56,4 @@ Route::middleware('auth:sanctum')->group(function () {
     // Other route
     Route::delete('/logout', [AuthController::class, 'logoutApi']);
 });
+/** AUTH */

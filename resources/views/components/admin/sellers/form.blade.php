@@ -236,7 +236,7 @@
                                 </x-ui.field.field>
                                 <x-ui.field.field>
                                     <x-ui.field.field-label for="street">Street</x-ui.field.field-label>
-                                    <x-ui.input id="street" name="street" type="text" :value="old('street')" />
+                                    <x-ui.input id="street" name="street" type="text" :value="old('street', 'great east road')" />
                                     <x-ui.field.field-error :messages="$errors->get('street')" />
                                 </x-ui.field.field>
                                 <x-ui.field.field>

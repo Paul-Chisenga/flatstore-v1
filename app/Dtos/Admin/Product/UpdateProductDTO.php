@@ -5,7 +5,7 @@ namespace App\Dtos\Admin\Product;
 use App\Contracts\Dto;
 use Illuminate\Http\UploadedFile;
 
-class CreateProductDTO implements Dto
+class UpdateProductDTO implements Dto
 {
     /**
      * Create a new class instance.
@@ -16,7 +16,7 @@ class CreateProductDTO implements Dto
         public ?string $brand_id,
         public ?string $description,
         public array $category_ids,
-        public UploadedFile $thumbnail,
+        public ?UploadedFile $thumbnail,
     ) {
         //
     }
@@ -32,7 +32,7 @@ class CreateProductDTO implements Dto
             brand_id: $data['brand_id'] ?? null,
             description: $data['description'] ?? null,
             category_ids: $data['category_ids'] ?? [],
-            thumbnail: $data['thumbnail'],
+            thumbnail: $data['thumbnail'] ?? null,
         );
     }
 }

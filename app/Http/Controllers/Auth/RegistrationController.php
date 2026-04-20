@@ -28,10 +28,17 @@ class RegistrationController extends Controller
 
     public function registerApi(RegisterRequest $request)
     {
-        $validated = $request->validated();
+        try {
+            $validated = $request->validated();
 
-        $loginResponse = $this->registerService->registerApi($validated);
+            $loginResponse = $this->registerService->registerApi($validated);
 
-        return response($loginResponse, status: 201);
+            return response($loginResponse, status: 201);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Registration failed: '.$e->getMessage());
+
+            return response()->json(['message' => 'Registration failed. Please try again.'], 500);
+        }
     }
 }

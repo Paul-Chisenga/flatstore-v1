@@ -2,7 +2,6 @@
 
 use App\Enums\ProductStatus;
 use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Seller;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -21,6 +20,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->enum('status', ProductStatus::values())->default(ProductStatus::Draft->value);
             // $table->json('seller_shipping_method_ids')->nullable();
+            $table->string('thumbnail_path');
 
             $table->foreignIdFor(Brand::class)->nullable()->constrained()->nullOnDelete();
             $table->foreignIdFor(Seller::class)->constrained()->cascadeOnDelete();

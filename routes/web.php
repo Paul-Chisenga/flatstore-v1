@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\Seller\ProductAttributeController as ProductAttributeAdminController;
 use App\Http\Controllers\Admin\Seller\ProductController as SellerProductAdminController;
+use App\Http\Controllers\Admin\Seller\ProductMediaController as ProductMediaAdminController;
 use App\Http\Controllers\Admin\Seller\ProductVariationController as ProductVariationAdminController;
 use App\Http\Controllers\Admin\Seller\SellerController;
 use App\Http\Controllers\Admin\Seller\StoreController as SellerStoreAdminController;
@@ -186,6 +187,19 @@ Route::prefix('admin')
                     ->name('admin.seller.products.update');
                 Route::delete('/{product}', [SellerProductAdminController::class, 'destroy'])
                     ->name('admin.seller.products.destroy');
+                // Product Media
+                Route::prefix('/{product}/medias')->group(function () {
+                    Route::get('/create', [ProductMediaAdminController::class, 'create'])
+                        ->name('admin.seller.product.medias.create');
+                    Route::post('/', [ProductMediaAdminController::class, 'store'])
+                        ->name('admin.seller.product.medias.store');
+                    Route::get('/{media}/edit', [ProductMediaAdminController::class, 'edit'])
+                        ->name('admin.seller.product.medias.edit');
+                    Route::put('/{media}', [ProductMediaAdminController::class, 'update'])
+                        ->name('admin.seller.product.medias.update');
+                    Route::delete('/{media}', [ProductMediaAdminController::class, 'destroy'])
+                        ->name('admin.seller.product.medias.destroy');
+                });
                 // Attributes
                 Route::prefix('/{product}/attributes')->group(function () {
                     Route::get('/', [ProductAttributeAdminController::class, 'index'])

@@ -5,9 +5,16 @@
 @endphp
 
 <x-ui.card class="pt-0 overflow-hidden">
-    <div class="flex h-36 w-full items-center justify-center bg-muted">
-        <span class="text-2xl font-bold text-muted-foreground">{{ Str::upper(Str::substr($product->name, 0, 2)) }}</span>
-    </div>
+
+    @if ($product->thumbnail_path)
+        <img src="{{ route('download', ['file_path' => $product->thumbnail_path]) }}" alt="{{ $product->name }} thumbnail"
+            class="h-36 w-full object-cover bg-muted" />
+    @else
+        <div class="flex h-36 w-full items-center justify-center bg-muted">
+            <span
+                class="text-2xl font-bold text-muted-foreground">{{ Str::upper(Str::substr($product->name, 0, 2)) }}</span>
+        </div>
+    @endif
 
     <x-ui.card.card-header>
         <x-ui.card.card-description>{{ $product->seller->name }}</x-ui.card.card-description>

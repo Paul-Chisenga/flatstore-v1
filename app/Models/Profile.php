@@ -18,6 +18,7 @@ class Profile extends Model
         'phone',
         'birth_date',
         'profile_photo_path',
+        'user_id',
     ];
 
     public function user(): BelongsTo

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(ProductVariation::class)->nullable()->constrained()->nullOnDelete();
+            $table->string('file_path');
 
             $table->enum('type', ProductMediaType::values())->default(ProductMediaType::IMAGE->value); // image, video, thumbnail
             $table->boolean('is_primary')->default(false); // mark main image

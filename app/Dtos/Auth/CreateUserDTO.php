@@ -10,7 +10,8 @@ class CreateUserDTO implements Dto
      * Create a new class instance.
      */
     public function __construct(
-        public string $name,
+        public string $first_name,
+        public string $last_name,
         public string $email,
         public string $password,
         public ?string $provider_id = null,
@@ -23,7 +24,8 @@ class CreateUserDTO implements Dto
     public static function fromArray(array $data): static
     {
         return new static(
-            name: $data['name'],
+            first_name: $data['firstName'],
+            last_name: $data['lastName'],
             email: $data['email'],
             password: $data['password'],
             provider_id: $data['provider_id'] ?? null,

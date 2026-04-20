@@ -22,7 +22,7 @@ class CreateApiLoginResponseData
         $responseData = [
             'token' => $token,
             'user' => [
-                'name' => $user->name,
+                'name' => "{$user->profile->first_name} {$user->profile->last_name}",
                 'email' => $user->email,
                 'avatar' => null, // Placeholder for avatar URL if you have one
                 'email_verified' => boolval($user->email_verified_at),

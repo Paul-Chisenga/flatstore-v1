@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Dtos\Home\Product as HomeProduct;
 use App\Dtos\Products\Product;
 use App\Services\ProductService;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProductController extends Controller
@@ -91,13 +90,13 @@ class ProductController extends Controller
         return view('app.products.show', ['product' => $product, 'related_products' => $related_products]);
     }
 
-    public function searchProductsApi(Request $request)
+    public function searchProductsApi()
     {
         try {
-            $query = $request->query('q', '');
+            $query = request()->query('q', '');
             $products = $this->productService->searchProducts($query);
 
-            return response()->json($products);
+            return response()->json(['data' => $products]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to search products'], 500);
         }
